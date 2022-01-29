@@ -1,0 +1,5 @@
+\Build\roms
+\Build\emulators
+\Build\metadata
+\Build\config\roms.csv
+\Build\config\emulators.csv
