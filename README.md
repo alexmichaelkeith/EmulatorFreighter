@@ -1,4 +1,4 @@
 ![Freighter.png](https://github.com/alexmichaelkeith/EmulatorFreighter/blob/main/Freighter.png)
-<p align="center">
+<h1 align="center">
 #Emulation Station
-</p>
+</h1>
