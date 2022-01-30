@@ -122,7 +122,6 @@ vector<emulator> readEmulators() {
                 for (int i = 4;i < entryVector.size();i++) {
                     currentEmulator.extensions.push_back(entryVector[i].c_str());
                 }
-                cout << currentEmulator.path << endl;
                 // Add emulator to vector
                 if (exists(currentEmulator.path)) {
                     emulatorVector.push_back(currentEmulator);

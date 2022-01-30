@@ -24,15 +24,6 @@ class quickScanner {
         vector<rom> scanRoms() {
             // Read roms and emulator file
             vector<emulator> emulatorVector = readEmulators();
-
-
-            for (int i=0;i<emulatorVector.size();i++) {
-                cout << emulatorVector[i].name << endl;
-            }
-            cout << emulatorVector.size();
-
-
-
             vector<rom> romVectorCSV = readRoms();
 
             // Create roms vector
