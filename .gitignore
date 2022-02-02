@@ -4,4 +4,7 @@
 \Build\config\roms.csv
 \Build\config\emulators.csv
 Makefile*
-EmulatorFreighter.pro.user*
+/.qmake.cache
+/.qmake.stash
+*.pro.user
+*.pro.user.*
