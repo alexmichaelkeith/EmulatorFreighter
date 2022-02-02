@@ -283,11 +283,56 @@ string findName(rom currentRom) {
     }
 }
 
-//Function to find run path for roms
+// Function to find run path for roms
 string getRunPath(string emulatorPath, string midParameters, string path, string trailingParameters) {
 
     string runPath;
     runPath = "\"\"" + emulatorPath + "\" " + midParameters + " \"" + path + "\"" + trailingParameters + "\"";
 
     return runPath;
+}
+
+// Function to read config file
+config readConfig() {
+
+    string line;
+    string entry;
+    vector<string> entryVector;
+    config myConfig;
+
+    // Create config.csv if missing
+    if (!exists("config/paths/config.csv")) {
+        std::ofstream myfile;
+        myfile.open ("config/paths/config.csv");
+        myfile.close();
+    }
+
+    // Open config.csv file
+    fstream file ("config/paths/config.csv", ios::in);
+    if(file.is_open())
+    {
+        // Loop to read lines
+        while(getline(file, line))
+        {
+            // Clear entryVector and take in line
+            entryVector.clear();
+            stringstream str(line);
+
+            // Loop to get csv entries
+            while(getline(str, entry, ','))
+            {
+                // Add word to temp vector
+                entryVector.push_back(entry);
+            }
+
+                // Loop to add all settings located in the current line
+                for (int i = 0;i < entryVector.size();i++) {
+                    myConfig.romDirectories.push_back(entryVector[i]);
+                }
+
+        }
+    }
+
+    // Return config map
+    return(myConfig);
 }

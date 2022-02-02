@@ -23,12 +23,13 @@ namespace fs = std::filesystem;
 
 int main(int argc, char *argv[])
 {
-
+    config myConfig;
+    myConfig = readConfig();
 
     quickScanner myscanner;
     vector<rom> romVector;
 
-    romVector = myscanner.scanRoms();
+    romVector = myscanner.scanRoms(myConfig);
     outputRoms(romVector);
     //readEmulators();
 

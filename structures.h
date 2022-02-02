@@ -27,3 +27,9 @@ struct emulator {
         std::string trailingParameters;
         std::vector<std::string> extensions;
 };
+
+struct config {
+
+    public:
+        std::vector<std::string> romDirectories;
+};
