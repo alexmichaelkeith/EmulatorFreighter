@@ -3,3 +3,5 @@
 \Build\metadata
 \Build\config\roms.csv
 \Build\config\emulators.csv
+Makefile*
+EmulatorFreighter.pro.user*
