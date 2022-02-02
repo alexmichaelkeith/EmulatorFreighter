@@ -27,7 +27,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    C:\EmulatorFreighter\Build\debug\scrapeIGDB.py
+    C:\EmulatorFreighter\scrapeIGDB.py
 
 
 RC_ICONS = myappico.ico
