@@ -1,8 +1,11 @@
-\Build\roms
-\Build\emulators
-\Build\metadata
-\Build\config\roms.csv
-\Build\config\emulators.csv
+roms
+emulators
+metadata
+debug
+release
+config\paths\roms.csv
+config\paths\emulators.csv
+config\paths\config.csv
 Makefile*
 /.qmake.cache
 /.qmake.stash
