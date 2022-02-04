@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include "json.hpp"
 struct rom {
 
     public:
@@ -16,6 +17,8 @@ struct rom {
         std::string path;
         std::string imagePathIGDB;
         std::string nameIGDB;
+
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(rom, filename, extension, emulator, emulatorpath, midParameters, trailingParmeters, runpath, filesize, path, imagePathIGDB, nameIGDB)
 };
 
 struct emulator {

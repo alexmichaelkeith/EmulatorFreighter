@@ -11,6 +11,7 @@
 #include <sstream>
 #include <string>
 #include <Python.h>
+#include "json.hpp"
 
 // Custom headers
 #include <structures.h>
@@ -18,6 +19,7 @@
 // Namespace std and filesystem
 using namespace std;
 using namespace filesystem;
+using json = nlohmann::json;
 
 // Function to read roms.csv and return saved roms in a vector if the path is still exists
 vector<rom> readRoms() {
@@ -199,6 +201,22 @@ void outputRoms(vector<rom> romVector)
              << romVector[i].imagePathIGDB << ","
              << romVector[i].nameIGDB << endl;
         }
+}
+
+void outputRomsJSON(vector<rom> romVector) {
+
+    json j;
+    //vector<json> jVector;
+    std::ofstream file("config/paths/key.json");
+    for(int i=0;i<romVector.size();i++) {
+        json j = romVector[i];
+        file << std::setw(4) << j << std::endl;
+        cout << romVector[i].emulator << " " << romVector[i].emulatorpath << endl;
+    }
+
+    //std::ofstream file("key.json");
+    //file << std::setw(4) << jVector[0] << std::endl;
+
 }
 
 // Function to return the correct emulator for each rom

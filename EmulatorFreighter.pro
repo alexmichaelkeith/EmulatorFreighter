@@ -14,9 +14,10 @@ SOURCES += \
 
 HEADERS += \
     functions.h \
+    json.hpp \
     mainwindow.h \
     quickScanner.h \
-    structures.h
+    structures.h \
 
 FORMS += \
     mainwindow.ui
