@@ -31,4 +31,4 @@ DISTFILES += \
     C:\EmulatorFreighter\scrapeIGDB.py
 
 
-RC_ICONS = myappico.ico
+RC_ICONS = config\images\myappico.ico
