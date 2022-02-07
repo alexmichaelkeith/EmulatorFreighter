@@ -32,3 +32,10 @@ DISTFILES += \
 
 
 RC_ICONS = config\images\myappico.ico
+
+install_it.path = %{buildDir}
+install_it.files += %{sourceDir}/scrapeIGDB.py
+
+INSTALLS += \
+    install_it
+
