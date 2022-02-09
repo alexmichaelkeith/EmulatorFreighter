@@ -14,7 +14,6 @@ def scrapeRom(namesString):
     names = namesString.split(',')
     finalstring = ""
     driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(), options=chrome_options)
-    # , options=chrome_options
     for name in names:
         try:
             romNumber = name.split(';')[0]
