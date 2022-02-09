@@ -207,7 +207,6 @@ void outputRoms(vector<rom> romVector)
 void outputRomsJSON(vector<rom> romVector) {
 
     json j;
-    //vector<json> jVector;
     std::ofstream file("config/paths/key.json");
     for(int i=0;i<romVector.size();i++) {
         json j = romVector[i];
@@ -224,8 +223,7 @@ void outputRomsJSON(vector<rom> romVector) {
 void outputSettingsJSON(vector<rom> romVector) {
 
     json j;
-    //vector<json> jVector;
-    std::ofstream file("config/paths/key.json");
+    std::ofstream file("config/paths/settings.json");
     for(int i=0;i<romVector.size();i++) {
         json j = romVector[i];
         file << std::setw(4) << j << std::endl;
