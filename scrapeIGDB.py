@@ -6,11 +6,10 @@ from webdriver_manager.utils import ChromeType
 from selenium.webdriver.chrome.options import Options
 import requests
 
-chrome_options = Options()
-chrome_options.add_argument("--headless")
-
 
 def scrapeRom(namesString):
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
     names = namesString.split(',')
     finalstring = ""
     driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(), options=chrome_options)
