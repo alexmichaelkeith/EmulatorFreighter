@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
     romVector = myscanner.scanRoms(myConfig);
     outputRoms(romVector);
     outputRomsJSON(romVector);
+    outputConfigJSON(myConfig);
 
     QApplication app(argc, argv);
 
