@@ -206,33 +206,19 @@ void outputRoms(vector<rom> romVector)
 // Function to output roms as json file
 void outputRomsJSON(vector<rom> romVector) {
 
-    json j;
     std::ofstream file("config/paths/key.json");
     for(int i=0;i<romVector.size();i++) {
         json j = romVector[i];
         file << std::setw(4) << j << std::endl;
-        cout << romVector[i].emulator << " " << romVector[i].emulatorpath << endl;
     }
-
-    //std::ofstream file("key.json");
-    //file << std::setw(4) << jVector[0] << std::endl;
 
 }
 
 // Function to output settings as json file
-void outputSettingsJSON(vector<rom> romVector) {
-
-    json j;
-    std::ofstream file("config/paths/settings.json");
-    for(int i=0;i<romVector.size();i++) {
-        json j = romVector[i];
+void outputConfigJSON(config myconfig) {
+        std::ofstream file("config/paths/config.json");
+        json j = myconfig;
         file << std::setw(4) << j << std::endl;
-        cout << romVector[i].emulator << " " << romVector[i].emulatorpath << endl;
-    }
-
-    //std::ofstream file("key.json");
-    //file << std::setw(4) << jVector[0] << std::endl;
-
 }
 
 
