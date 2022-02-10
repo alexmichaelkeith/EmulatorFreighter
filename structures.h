@@ -35,4 +35,5 @@ struct config {
 
     public:
         std::vector<std::string> romDirectories;
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(config, romDirectories);
 };
