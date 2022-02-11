@@ -24,18 +24,15 @@ namespace fs = std::filesystem;
 int main(int argc, char *argv[])
 {
     config myConfig;
-    //myConfig = readConfig();
     myConfig = readConfigJSON();
-    //cout << myConfig.romDirectories[0];
+
     quickScanner myscanner;
+
     vector<rom> romVector;
-    //vector<rom> romVectorTEST;
-    readRomsJSON();
-    //readConfigJSON();
     romVector = myscanner.scanRoms(myConfig);
-    //outputRoms(romVector);
+
     outputRomsJSON(romVector);
-    outputConfigJSON(myConfig);
+    //outputConfigJSON(myConfig);
 
     QApplication app(argc, argv);
 

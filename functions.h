@@ -143,8 +143,6 @@ config readConfigJSON() {
     {
     json j = json::parse(fin);
     myConfig = j;
-    cout << myConfig.romDirectories[0] << endl;
-    cout << myConfig.romDirectories[1] << endl;
     }
     return(myConfig);
 }
