@@ -1,7 +1,6 @@
 // Custom Function created for Emulation Station
 #pragma once
 
-
 // Headers
 #include <iostream>
 #include <filesystem>
@@ -10,130 +9,53 @@
 #include <vector>
 #include <sstream>
 #include <string>
-#include <Python.h>
 #include "json.hpp"
+#include <Python.h>
 
 // Custom headers
 #include <structures.h>
 
-// Namespace std and filesystem
+// Namespace std, filesystem, and json
 using namespace std;
 using namespace filesystem;
 using json = nlohmann::json;
 
-// Function to read roms.csv and return saved roms in a vector if the path is still exists
-vector<rom> readRoms() {
+// Function to read roms json file
+vector<rom> readRomsJSON() {
 
-    string line;
-    string entry;
-    string currentRom;
-    vector<string> entryVector;
+    std::fstream fin;
     vector<rom> romVector;
-
-    // Create roms.csv if missing
-    if (!exists("config/paths/roms.csv")) {
-        std::ofstream myfile;
-        myfile.open ("config/paths/roms.csv");
-        myfile.close();
-    }
-
-    // Open roms.csv file
-    fstream file ("config/paths/roms.csv", ios::in);
-    if(file.is_open())
-    {
-        // Loop to read lines
-        while(getline(file, line))
+    if (exists("config/paths/roms.json")) {
+        fin.open("config/paths/roms.json", ios::in | ios::app);
+        if(fin.is_open())
         {
-            // Clear entryVector and take in line
-            entryVector.clear();
-            stringstream str(line);
-
-            // Loop to get csv entries
-            while(getline(str, entry, ','))
-            {
-                // Add word to temp vector
-                entryVector.push_back(entry);
-            }
-                // Create instance of new rom
-                currentRom = entryVector[0].c_str();
-                rom currentRom;
-
-                // Set rom values
-                currentRom.filename = entryVector[0];
-                currentRom.extension = entryVector[1];
-                currentRom.filesize = stod(entryVector[2]);
-                currentRom.path = {absolute(entryVector[3]).u8string()};
-                currentRom.runpath = entryVector[4];
-                currentRom.imagePathIGDB ={absolute(entryVector[5]).u8string()};
-                currentRom.nameIGDB = entryVector[6];
-
-                // Add emulator to vector
-                if (exists(currentRom.path)) {
-                    romVector.push_back(currentRom);
-                }
-            }
-    }
-
-    // Return rom Vector
-    return(romVector);
-}
-
-// Function to read emulators.csv and return saved emulators in a vector if the path is still exists
-vector<emulator> readEmulators() {
-
-    string line;
-    string entry;
-    string currentEmulator;
-    vector<string> entryVector;
-    vector<emulator> emulatorVector;
-
-    // Create emulators.csv if missing
-    if (!exists("config/paths/emulators.csv")) {
-        std::ofstream myfile;
-        myfile.open ("config/paths/emulators.csv");
-        myfile.close();
-    }
-
-    // Open emulators.csv file
-    fstream file ("config/paths/emulators.csv", ios::in);
-    if(file.is_open())
-    {
-        // Loop to read lines
-        while(getline(file, line))
-        {
-            // Clear entryVector and take in line
-            entryVector.clear();
-            stringstream str(line);
-
-            // Loop to get csv entries
-            while(getline(str, entry, ','))
-            {
-                // Add word to temp vector
-                entryVector.push_back(entry);
-            }
-                // Create instance of new emulator
-                currentEmulator = entryVector[0].c_str();
-                emulator currentEmulator;
-
-                // Set emulator values
-                currentEmulator.name = entryVector[0].c_str();
-                currentEmulator.midParameters = entryVector[1].c_str();
-                currentEmulator.trailingParameters = entryVector[2].c_str();
-                currentEmulator.path = {absolute(entryVector[3]).u8string()};
-                // Loop to add all extensions located after name and path
-                for (int i = 4;i < entryVector.size();i++) {
-                    currentEmulator.extensions.push_back(entryVector[i].c_str());
-                }
-                // Add emulator to vector
-                if (exists(currentEmulator.path)) {
-                    emulatorVector.push_back(currentEmulator);
-                }
+            json j = json::parse(fin);
+            romVector = j;
         }
     }
 
-    // Return emulator Vector
-    return(emulatorVector);
+    return(romVector);
+
 }
+
+// Function to read emulators json file
+vector<emulator> readEmulatorsJSON() {
+
+    std::fstream fin;
+    vector<emulator> emulatorVector;
+    if (exists("config/paths/emulators.json")) {
+        fin.open("config/paths/emulators.json", ios::in | ios::app);
+        if(fin.is_open())
+        {
+            json j = json::parse(fin);
+            emulatorVector = j;
+        }
+    }
+
+    return(emulatorVector);
+
+}
+
 
 // Function used to call Python script and get a return string
 string callIntFunc(string funcName, string query)
@@ -181,49 +103,51 @@ string callIntFunc(string funcName, string query)
     return _PyUnicode_AsString(presult);
 }
 
-// Function to output roms list to csv file
-void outputRoms(vector<rom> romVector)
-{
-    // file pointer
-    std::fstream fout;
-
-    // opens an existing csv file or creates a new file.
-    fout.open("config/paths/roms.csv", std::ofstream::out | std::ofstream::trunc);
-    fout.close();
-
-    fout.open("config/paths/roms.csv", ios::out | ios::app);
-    for (int i = 0; i < romVector.size(); i++) {
-        fout << romVector[i].filename << ","
-             << romVector[i].extension << ","
-             << romVector[i].filesize << ","
-             << romVector[i].path << ","
-             << romVector[i].runpath << ","
-             << romVector[i].imagePathIGDB << ","
-             << romVector[i].nameIGDB << endl;
-        }
-}
-
 // Function to output roms as json file
 void outputRomsJSON(vector<rom> romVector) {
 
-    //std::ofstream file("config/paths/key.json");
-    //for(int i=0;i<romVector.size();i++) {
-        //json j = romVector[i];
-        //file << std::setw(4) << j << std::endl;
-    //}
-    std::ofstream file1("config/paths/roms.json");
-    json j = romVector;
-    file1 << std::setw(4) << j << std::endl;
+    std::fstream fout;
 
+    // opens an existing csv file or creates a new file.
+    fout.open("config/paths/roms.json", std::ofstream::out | std::ofstream::trunc);
+    fout.close();
+
+    fout.open("config/paths/roms.json", ios::out | ios::app);
+    json j = romVector;
+    //fout << j;
+    fout << std::setw(4) << j << std::endl;
 }
 
 // Function to output settings as json file
-void outputConfigJSON(config myconfig) {
-        std::ofstream file("config/paths/config.json");
-        json j = myconfig;
-        file << std::setw(4) << j << std::endl;
+void outputConfigJSON(config myConfig) {
+
+    std::fstream fout;
+
+    // opens an existing csv file or creates a new file.
+    fout.open("config/paths/config.json", std::ofstream::out | std::ofstream::trunc);
+    fout.close();
+
+    fout.open("config/paths/config.json", ios::out | ios::app);
+    json j = myConfig;
+    //fout << j;
+    fout << std::setw(4) << j << std::endl;
 }
 
+// Function to open and read the config file
+config readConfigJSON() {
+
+    std::fstream fin;
+    fin.open("config/paths/config.json", ios::in | ios::app);
+    config myConfig;
+    if(fin.is_open())
+    {
+    json j = json::parse(fin);
+    myConfig = j;
+    cout << myConfig.romDirectories[0] << endl;
+    cout << myConfig.romDirectories[1] << endl;
+    }
+    return(myConfig);
+}
 
 // Function to return the correct emulator for each rom
 string findRomEmulatorValues(vector<emulator> emulatorVector, rom currentRom, string value) {
@@ -276,15 +200,6 @@ vector<string> getCompatibleExtensions(vector<emulator> emulatorVector, vector<s
     return compatibleExtensions;
 }
 
-// Function to remove commas from filename
-string cleanupFilename(string fileName) {
-
-    // Replace commas and semicolons to preserve csv file accuracy
-    replace(fileName.begin(), fileName.end(), ',', ' '); // replace all ',' to ' '
-    return fileName;
-}
-
-
 // Function to find image for widget tiles
 string findImage(rom currentRom) {
 
@@ -316,47 +231,10 @@ string getRunPath(string emulatorPath, string midParameters, string path, string
     return runPath;
 }
 
-// Function to read config file
-config readConfig() {
+// Function to remove commas from filename
+string cleanupFilename(string fileName) {
 
-    string line;
-    string entry;
-    vector<string> entryVector;
-    config myConfig;
-
-    // Create config.csv if missing
-    if (!exists("config/paths/config.csv")) {
-        std::ofstream myfile;
-        myfile.open ("config/paths/config.csv");
-        myfile.close();
-    }
-
-    // Open config.csv file
-    fstream file ("config/paths/config.csv", ios::in);
-    if(file.is_open())
-    {
-        // Loop to read lines
-        while(getline(file, line))
-        {
-            // Clear entryVector and take in line
-            entryVector.clear();
-            stringstream str(line);
-
-            // Loop to get csv entries
-            while(getline(str, entry, ','))
-            {
-                // Add word to temp vector
-                entryVector.push_back(entry);
-            }
-
-                // Loop to add all settings located in the current line
-                for (int i = 0;i < entryVector.size();i++) {
-                    myConfig.romDirectories.push_back(entryVector[i]);
-                }
-
-        }
-    }
-
-    // Return config map
-    return(myConfig);
+    // Replace commas and semicolons to preserve csv file accuracy
+    replace(fileName.begin(), fileName.end(), ',', ' '); // replace all ',' to ' '
+    return fileName;
 }

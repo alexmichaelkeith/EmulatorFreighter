@@ -17,7 +17,6 @@ struct rom {
         std::string path;
         std::string imagePathIGDB;
         std::string nameIGDB;
-
         NLOHMANN_DEFINE_TYPE_INTRUSIVE(rom, filename, extension, emulator, emulatorpath, midParameters, trailingParmeters, runpath, filesize, path, imagePathIGDB, nameIGDB)
 };
 
@@ -29,6 +28,8 @@ struct emulator {
         std::string midParameters;
         std::string trailingParameters;
         std::vector<std::string> extensions;
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(emulator, name, path, midParameters, trailingParameters, extensions);
+
 };
 
 struct config {

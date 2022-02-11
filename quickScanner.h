@@ -12,10 +12,8 @@
 #include <functions.h>
 #include <structures.h>
 
-
 using namespace std;
 using namespace filesystem;
-
 
 class quickScanner {
     public:
@@ -27,8 +25,8 @@ class quickScanner {
             string currentRom;
 
             // Read roms and emulator file
-            vector<emulator> emulatorVector = readEmulators();
-            vector<rom> romVectorCSV = readRoms();
+            vector<emulator> emulatorVector = readEmulatorsJSON();
+            vector<rom> romVectorCSV = readRomsJSON();
 
             // Create roms vector
             vector<rom> romVector;
@@ -49,18 +47,6 @@ class quickScanner {
             }
 
             for (int i=0; i < myConfig.romDirectories.size();i++) {
-
-                // Loop to search recursivly through the roms folder and cleanup filenames
-                for (const auto & file : filesystem::recursive_directory_iterator(myConfig.romDirectories[i]))
-                {
-                    // If it's a regular file, list it
-                    if (is_regular_file(file.path()) && (find(compatibleExtensions.begin(), compatibleExtensions.end(), file.path().extension().string()) != compatibleExtensions.end())) {
-
-                        // Remove "," from filenames
-                        string cleanedPath = cleanupFilename(file.path().string());
-                        rename(file.path().string(), cleanedPath.c_str());
-                    }
-                }
 
                 // Loop to search recursivly through the roms folder
                 bool flag = false;
