@@ -24,15 +24,15 @@ namespace fs = std::filesystem;
 int main(int argc, char *argv[])
 {
     config myConfig;
-    myConfig = readConfigJSON();
+    myConfig = readConfig();
 
     quickScanner myscanner;
 
     vector<rom> romVector;
     romVector = myscanner.scanRoms(myConfig);
 
-    outputRomsJSON(romVector);
-    //outputConfigJSON(myConfig);
+    outputRoms(romVector);
+    outputConfig(myConfig);
 
     QApplication app(argc, argv);
 
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
     // Set the grid layout as a main layout
     w->setLayout(gridLayout);
     // Window title and background
-    w->setWindowTitle("EmulatorFreightor");
+    w->setWindowTitle("Emulator Freightor");
     w->setStyleSheet("background-image: url(config/images/gradient.jpg);");
     // Display
     w->showMaximized();

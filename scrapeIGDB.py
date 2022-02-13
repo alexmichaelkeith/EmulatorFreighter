@@ -6,6 +6,7 @@ from webdriver_manager.utils import ChromeType
 from selenium.webdriver.chrome.options import Options
 import requests
 
+
 # Function to scrape the IGDG using rom names for metadata
 def scrapeRom(namesString):
     chrome_options = Options()

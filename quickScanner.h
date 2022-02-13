@@ -25,8 +25,8 @@ class quickScanner {
             string currentRom;
 
             // Read roms and emulator file
-            vector<emulator> emulatorVector = readEmulatorsJSON();
-            vector<rom> romVectorCSV = readRomsJSON();
+            vector<emulator> emulatorVector = readEmulators();
+            vector<rom> romVectorCSV = readRoms();
 
             // Create roms vector
             vector<rom> romVector;

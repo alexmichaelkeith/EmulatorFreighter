@@ -21,7 +21,7 @@ using namespace filesystem;
 using json = nlohmann::json;
 
 // Function to read roms json file
-vector<rom> readRomsJSON() {
+vector<rom> readRoms() {
 
     std::fstream fin;
     vector<rom> romVector;
@@ -39,7 +39,7 @@ vector<rom> readRomsJSON() {
 }
 
 // Function to read emulators json file
-vector<emulator> readEmulatorsJSON() {
+vector<emulator> readEmulators() {
 
     std::fstream fin;
     vector<emulator> emulatorVector;
@@ -55,7 +55,6 @@ vector<emulator> readEmulatorsJSON() {
     return(emulatorVector);
 
 }
-
 
 // Function used to call Python script and get a return string
 string callIntFunc(string funcName, string query)
@@ -104,7 +103,7 @@ string callIntFunc(string funcName, string query)
 }
 
 // Function to output roms as json file
-void outputRomsJSON(vector<rom> romVector) {
+void outputRoms(vector<rom> romVector) {
 
     std::fstream fout;
 
@@ -119,7 +118,7 @@ void outputRomsJSON(vector<rom> romVector) {
 }
 
 // Function to output settings as json file
-void outputConfigJSON(config myConfig) {
+void outputConfig(config myConfig) {
 
     std::fstream fout;
 
@@ -134,7 +133,7 @@ void outputConfigJSON(config myConfig) {
 }
 
 // Function to open and read the config file
-config readConfigJSON() {
+config readConfig() {
 
     std::fstream fin;
     fin.open("config/paths/config.json", ios::in | ios::app);
