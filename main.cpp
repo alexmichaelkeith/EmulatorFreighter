@@ -18,6 +18,7 @@
 #include <Python.h>
 
 #include <functions.h>
+#include <CustomButton.h>
 
 namespace fs = std::filesystem;
 
