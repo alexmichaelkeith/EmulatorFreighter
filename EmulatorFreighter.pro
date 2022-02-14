@@ -13,6 +13,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    CustomButton.h \
     functions.h \
     json.hpp \
     mainwindow.h \
