@@ -1,24 +1,28 @@
-from importlib.resources import path
 import os
+import platform
 import requests
-from bs4 import BeautifulSoup
-from lxml import html
 from zipfile import ZipFile
-from urllib.request import urlopen
 from io import BytesIO
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+from lxml import html
 
 
 # Function to scrape Cemu
-def __main__():
-    page = requests.get("https://cemu.info/#download")
-    soup = BeautifulSoup(page.content, "html.parser")
-    zipurl = soup.select_one(".btn").get('href')
-    zipPath = os.path.dirname(os.getcwd()) + "\emulators"
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(zipPath)
-            print(zfile)
+def main():
+    if platform.system() == "Windows":
+        try:
+            page = requests.get("https://cemu.info/#download")
+            soup = BeautifulSoup(page.content, "html.parser")
+            zipurl = soup.select_one(".btn").get('href')
+            zipPath = os.path.dirname(os.getcwd()) + "\emulators"
+            with urlopen(zipurl) as zipresp:
+                with ZipFile(BytesIO(zipresp.read())) as zfile:
+                    zfile.extractall(zipPath)
+        except:
+            return "Download failed"
+    else:
+        return "Cemu " + "is not available on " + platform.system()
 
-
-if __name__ == '__main__':
-    __main__()
+if __name__ == "__main__":
+    main()
