@@ -26,16 +26,16 @@ vector<rom> readRoms() {
     std::fstream fin;
     vector<rom> romVector;
     if (exists("config/paths/roms.json")) {
-        fin.open("config/paths/roms.json", ios::in | ios::app);
-        if(fin.is_open())
-        {
-            json j = json::parse(fin);
-            romVector = j;
-        }
+        try {
+            fin.open("config/paths/roms.json", ios::in | ios::app);
+            if(fin.is_open())
+            {
+                json j = json::parse(fin);
+                romVector = j;
+            }
+        } catch (...) {}
     }
-
     return(romVector);
-
 }
 
 // Function to read emulators json file
@@ -44,16 +44,16 @@ vector<emulator> readEmulators() {
     std::fstream fin;
     vector<emulator> emulatorVector;
     if (exists("config/paths/emulators.json")) {
-        fin.open("config/paths/emulators.json", ios::in | ios::app);
-        if(fin.is_open())
-        {
-            json j = json::parse(fin);
-            emulatorVector = j;
-        }
+        try {
+            fin.open("config/paths/emulators.json", ios::in | ios::app);
+            if(fin.is_open())
+            {
+                json j = json::parse(fin);
+                emulatorVector = j;
+            }
+        } catch (...) {}
     }
-
     return(emulatorVector);
-
 }
 
 // Function used to call Python script and get a return string
@@ -138,11 +138,13 @@ config readConfig() {
     std::fstream fin;
     fin.open("config/paths/config.json", ios::in | ios::app);
     config myConfig;
-    if(fin.is_open())
-    {
-    json j = json::parse(fin);
-    myConfig = j;
-    }
+    try {
+        if(fin.is_open())
+        {
+            json j = json::parse(fin);
+            myConfig = j;
+        }
+    }  catch (...) {}
     return(myConfig);
 }
 
