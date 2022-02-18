@@ -226,7 +226,6 @@ string getRunPath(string emulatorPath, string midParameters, string path, string
 
     string runPath;
     runPath = "\"\"" + emulatorPath + "\" " + midParameters + " \"" + path + "\"" + trailingParameters + "\"";
-
     return runPath;
 }
 
