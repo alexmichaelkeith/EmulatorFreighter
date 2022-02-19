@@ -15,7 +15,6 @@
 #include <fstream>
 #include <structures.h>
 #include <map>
-#include <Python.h>
 
 #include <functions.h>
 #include <CustomButton.h>
