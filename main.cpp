@@ -7,6 +7,8 @@
 #include <QGridLayout>
 #include <QApplication>
 #include <QToolButton>
+#include <QMenuBar>
+#include <QVBoxLayout>
 
 #include <quickScanner.h>
 #include <vector>
@@ -71,15 +73,18 @@ int main(int argc, char *argv[])
         row++;
     }
 
+    MainWindow *mainWindow = new MainWindow;
+
     // Create a widget
-    QWidget *w = new QWidget();
+    QWidget *w = new QWidget(mainWindow);
+    mainWindow->setCentralWidget(w);
     // Set the grid layout as a main layout
     w->setLayout(gridLayout);
     // Window title and background
-    w->setWindowTitle("Emulator Freightor");
+    mainWindow->setWindowTitle("Emulator Freightor");
     w->setStyleSheet("background-image: url(config/images/gradient.jpg);");
     // Display
-    w->showMaximized();
+    mainWindow->showMaximized();
     // Event loop
     return app.exec();
 }

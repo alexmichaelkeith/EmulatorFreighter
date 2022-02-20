@@ -4,6 +4,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.utils import ChromeType
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 import requests
 
 
@@ -13,7 +14,7 @@ def scrapeRom(namesString):
     chrome_options.add_argument("--headless")
     names = namesString.split(',')
     finalstring = ""
-    driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(), options=chrome_options)
+    driver = driver = webdriver.Chrome(service=Service(ChromeDriverManager().install(), options=chrome_options))
     for name in names:
         try:
             romNumber = name.split(';')[0]

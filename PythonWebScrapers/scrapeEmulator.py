@@ -46,7 +46,7 @@ def DeSmuME():
     if platform.system() == "Windows":
         try:
             zipurl = "https://nightly.link/TASEmulators/desmume/workflows/build_win/master/desmume-win-x64.zip"
-            zipPath = os.path.dirname(os.getcwd()) + "\emulators/test"
+            zipPath = os.path.dirname(os.getcwd()) + "\emulators/DeSmuME"
             with urlopen(zipurl) as zipresp:
                 with ZipFile(BytesIO(zipresp.read())) as zfile:
                     zfile.extractall(zipPath)
