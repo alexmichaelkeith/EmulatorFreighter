@@ -9,6 +9,7 @@
 #include <QToolButton>
 #include <QMenuBar>
 #include <QVBoxLayout>
+#include <dialog.h>
 
 #include <quickScanner.h>
 #include <vector>
@@ -62,7 +63,13 @@ int main(int argc, char *argv[])
             QObject::connect(tile, &QToolButton::clicked, [=]()
             {
                 cout << romVector[romcount].runpath.c_str() << endl;
-                system(romVector[romcount].runpath.c_str());
+                //system(romVector[romcount].runpath.c_str());
+
+                dialog myDialog;
+                myDialog.setModel(true);
+                myDialog.exec();
+
+
                    });
 
             gridLayout->addWidget(tile,row,j,1,1);

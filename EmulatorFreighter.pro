@@ -9,12 +9,10 @@ LIBS += -L C:\Users\akeit\AppData\Local\Programs\Python\Python310\libs -lpython3
 INCLUDEPATH += C:\Users\akeit\AppData\Local\Programs\Python\Python310\include
 
 SOURCES += \
-    CustomButton.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    CustomButton.h \
     functions.h \
     json.hpp \
     mainwindow.h \
