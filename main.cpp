@@ -9,7 +9,6 @@
 #include <QToolButton>
 #include <QMenuBar>
 #include <QVBoxLayout>
-#include <dialog.h>
 
 #include <quickScanner.h>
 #include <vector>
@@ -20,7 +19,6 @@
 #include <map>
 
 #include <functions.h>
-#include <CustomButton.h>
 
 namespace fs = std::filesystem;
 
@@ -63,11 +61,9 @@ int main(int argc, char *argv[])
             QObject::connect(tile, &QToolButton::clicked, [=]()
             {
                 cout << romVector[romcount].runpath.c_str() << endl;
-                //system(romVector[romcount].runpath.c_str());
+                system(romVector[romcount].runpath.c_str());
 
-                dialog myDialog;
-                myDialog.setModel(true);
-                myDialog.exec();
+
 
 
                    });

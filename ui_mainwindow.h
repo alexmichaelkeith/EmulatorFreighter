@@ -15,6 +15,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -32,6 +33,7 @@ public:
     QAction *actionDate;
     QAction *actionIGDB_Score;
     QWidget *centralwidget;
+    QPushButton *pushButton;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuView;
@@ -71,6 +73,9 @@ public:
         actionIGDB_Score->setCheckable(true);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        pushButton = new QPushButton(centralwidget);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(320, 400, 80, 24));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -115,6 +120,7 @@ public:
         actionName->setText(QCoreApplication::translate("MainWindow", "Name", nullptr));
         actionDate->setText(QCoreApplication::translate("MainWindow", "Date", nullptr));
         actionIGDB_Score->setText(QCoreApplication::translate("MainWindow", "IGDB Score", nullptr));
+        pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
         menuView->setTitle(QCoreApplication::translate("MainWindow", "View", nullptr));
         menuIcons->setTitle(QCoreApplication::translate("MainWindow", "Tile Sizes", nullptr));
