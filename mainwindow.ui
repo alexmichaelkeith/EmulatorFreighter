@@ -14,17 +14,17 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QScrollBar" name="verticalScrollBar">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>400</y>
-      <width>80</width>
-      <height>24</height>
+      <x>780</x>
+      <y>0</y>
+      <width>20</width>
+      <height>581</height>
      </rect>
     </property>
-    <property name="text">
-     <string>PushButton</string>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
     </property>
    </widget>
   </widget>
@@ -41,6 +41,7 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -137,6 +138,11 @@
    </property>
    <property name="text">
     <string>IGDB Score</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
    </property>
   </action>
  </widget>

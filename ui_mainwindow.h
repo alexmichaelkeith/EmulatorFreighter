@@ -15,7 +15,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollBar>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -32,8 +32,9 @@ public:
     QAction *actionName;
     QAction *actionDate;
     QAction *actionIGDB_Score;
+    QAction *actionExit;
     QWidget *centralwidget;
-    QPushButton *pushButton;
+    QScrollBar *verticalScrollBar;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuView;
@@ -71,11 +72,14 @@ public:
         actionIGDB_Score = new QAction(MainWindow);
         actionIGDB_Score->setObjectName(QString::fromUtf8("actionIGDB_Score"));
         actionIGDB_Score->setCheckable(true);
+        actionExit = new QAction(MainWindow);
+        actionExit->setObjectName(QString::fromUtf8("actionExit"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(320, 400, 80, 24));
+        verticalScrollBar = new QScrollBar(centralwidget);
+        verticalScrollBar->setObjectName(QString::fromUtf8("verticalScrollBar"));
+        verticalScrollBar->setGeometry(QRect(780, 0, 20, 581));
+        verticalScrollBar->setOrientation(Qt::Vertical);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -93,6 +97,7 @@ public:
         menubar->addAction(menuFile->menuAction());
         menubar->addAction(menuSettings->menuAction());
         menubar->addAction(menuView->menuAction());
+        menuFile->addAction(actionExit);
         menuView->addAction(menuIcons->menuAction());
         menuView->addAction(actionName);
         menuView->addAction(actionDate);
@@ -120,7 +125,7 @@ public:
         actionName->setText(QCoreApplication::translate("MainWindow", "Name", nullptr));
         actionDate->setText(QCoreApplication::translate("MainWindow", "Date", nullptr));
         actionIGDB_Score->setText(QCoreApplication::translate("MainWindow", "IGDB Score", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        actionExit->setText(QCoreApplication::translate("MainWindow", "Exit", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
         menuView->setTitle(QCoreApplication::translate("MainWindow", "View", nullptr));
         menuIcons->setTitle(QCoreApplication::translate("MainWindow", "Tile Sizes", nullptr));

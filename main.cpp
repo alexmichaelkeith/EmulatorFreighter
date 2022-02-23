@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
             tile->setMaximumHeight(400);
             tile->setIcon(QIcon(findImage(romVector[romcount]).c_str()));
             tile->setIconSize(QSize(264, 352));
-
+            //tile->set
             QObject::connect(tile, &QToolButton::clicked, [=]()
             {
                 cout << romVector[romcount].runpath.c_str() << endl;
