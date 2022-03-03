@@ -3,4 +3,19 @@
 Emulator Freighter
 </h1>
 
-test
+An application to manage emulators and roms. Automatically scrapes and manages metadata as well as displaying an interactive menu to organize and launch roms.
+
+
+# Run
+
+Linux
+
+
+Windows
+
+Run the windows installation wizard or unzip the compressed folder
+
+
+
+# Build
+
