@@ -2,9 +2,9 @@
 <h1 align="center">
 Emulator Freighter
 </h1>
-<h2 align="center">
+<h3 align="center">
 An application to manage emulators and roms. Automatically scrapes and manages metadata as well as displaying an interactive menu to organize and launch roms.
-</h2>
+</h3>
 
 # Run
 
