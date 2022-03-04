@@ -19,3 +19,4 @@ Run the windows installation wizard or unzip the compressed folder
 
 # Build
 
+QT Creator
