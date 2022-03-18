@@ -44,21 +44,4 @@ git clone https://github.com/alexmichaelkeith/EmulatorFreighter
 
 ## Windows
 
-
-
 ## Linux
-=======
-# Run
-
-## Linux
-
-
-## Windows
-
-Run the windows installation wizard or unzip the compressed folder
-
-
-
-# Build
-
-QT Creator
