@@ -6,7 +6,6 @@ Emulator Freighter
 An application to manage emulators and roms. Automatically scrapes and manages metadata as well as displaying an interactive menu to organize and launch roms.
 </h4>
 
-<<<<<<< HEAD
 <h3 align="center">
 A fullstack C++ application to manage, automatically scrape metadata, and launch ROMS, all from a moder UI
 </h3>
@@ -63,4 +62,3 @@ Run the windows installation wizard or unzip the compressed folder
 # Build
 
 QT Creator
->>>>>>> dc802aea99e170d76d790b83e315a506ebcf521d
