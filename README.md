@@ -6,6 +6,12 @@ Emulator Freighter
 An fullstack C++ application to manage emulators and roms. Automatically scrapes and manages metadata as well as displaying an interactive menu to organize and launch roms.
 </h4>
 
+# Features
+
+- Light/dark mode toggle
+- Live previews
+- Fullscreen mode
+- Cross platform
 
 # Usage
 
