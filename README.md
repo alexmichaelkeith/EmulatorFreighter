@@ -1,14 +1,23 @@
 
 ![Freighter.png](config/images/Freighter.png)
 
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
+<h1 align="center">
+Emulator Freighter
+</h1>
 
-# Emulator Freighter
-
+<h3 align="center">
 A fullstack C++ application to manage emulators and roms. Automatically scrapes and manages metadata as well as displaying an interactive menu to organize and launch roms.
+
+<h3>
+
+<h3 align="center">
+
+[![Website](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/alexmichaelkeith/EmulatorFreighter/blob/main/LICENSE)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/alexmichaelkeith/EmulatorFreighter/blob/main/LICENSE)
+[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+</h3>
+
 
 
 ## Features
