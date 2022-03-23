@@ -15,7 +15,6 @@ A fullstack C++ application to manage emulators and roms. Automatically scrapes 
 
 [![Website](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/alexmichaelkeith/EmulatorFreighter/blob/main/LICENSE)
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/alexmichaelkeith/EmulatorFreighter/blob/main/LICENSE)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 </h3>
 
 
