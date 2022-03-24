@@ -3,14 +3,6 @@
   <img src="config/images/Freighter.png">
 </p>
 
-<h1 align="center">
-Emulator Freighter
-</h1>
-
-<h3 align="center">
-A fullstack C++ application to manage emulators and roms. Automatically scrapes and manages metadata as well as displaying an interactive menu to organize and launch roms.
-
-<h3>
 
 <h3 align="center">
 
@@ -19,7 +11,16 @@ A fullstack C++ application to manage emulators and roms. Automatically scrapes 
 </h3>
 
 
+<h1 align="center">
+Emulator Freighter
+</h1>
 
+<h4 align="center">
+A fullstack C++ application to manage emulators and roms. Automatically scrapes and manages metadata as well as displaying an interactive menu to organize and launch roms.
+
+<h4>
+
+  
 ## Features
 
 - Light/dark mode toggle
