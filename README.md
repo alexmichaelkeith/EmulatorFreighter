@@ -3,24 +3,33 @@
   <img src="config/images/Freighter.png">
 </p>
 
-
-<h3 align="center">
-
-[![Website](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/alexmichaelkeith/EmulatorFreighter/blob/main/LICENSE)
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/alexmichaelkeith/EmulatorFreighter/blob/main/LICENSE)
-</h3>
-
-
 <h1 align="center">
 Emulator Freighter
 </h1>
+
 
 <h4 align="center">
 A fullstack C++ application to manage emulators and roms. Automatically scrapes and manages metadata as well as displaying an interactive menu to organize and launch roms.
 
 <h4>
 
+<h3 align="center">
+
+[![Website](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/alexmichaelkeith/EmulatorFreighter/blob/main/LICENSE)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/alexmichaelkeith/EmulatorFreighter/blob/main/LICENSE)
+</h3>
   
+  
+<p align="center">
+  <a href="#demo">Demo</a> |
+  <a href="#usage">Usage</a> |
+  <a href="#build">Build</a> |
+  <a href="#roadmap">Download</a> |
+  <a href="#faq">FAQ</a> |
+  <a href="#feedback">Feedback</a>
+</p>
+  
+
 ## Features
 
 - Light/dark mode toggle
