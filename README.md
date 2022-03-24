@@ -35,7 +35,7 @@ Insert gif or link to demo
 
 ## Usage
 
-### Run
+### Installation
 
 * Download the latest Windows or Linux builds from the releases tab in github, or directly from here.
 * Run the EmulatorFreighterSetup executable file, or unzip the raw program files
@@ -53,14 +53,10 @@ Insert gif or link to demo
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 
-## Installation
+## Build
+  
+QT Creator
 
-Install my-project with npm
-
-```bash
-  npm install my-project
-  cd my-project
-```
     
 ## Roadmap
 
@@ -68,39 +64,7 @@ Install my-project with npm
 
 - Add more integrations
 
-
-## Run Locally
-
-Clone the project
-
-```bash
-  git clone https://link-to-project
-```
-
-Go to the project directory
-
-```bash
-  cd my-project
-```
-
-Install dependencies
-
-```bash
-  npm install
-```
-
-Start the server
-
-```bash
-  npm run start
-```
-
-
-## Feedback
-
-If you have any feedback, please reach out to us at fake@fake.com
-
-
+  
 ## Documentation
 
 [Documentation](https://linktodocumentation)
@@ -116,6 +80,10 @@ Answer 1
 
 Answer 2
 
+## Feedback
+
+If you have any feedback, please reach out to me at alex.michael.keith@gmail.com
+
 
 ## Contributing
 
@@ -128,12 +96,7 @@ Please adhere to this project's `code of conduct`.
 
 ## Support
 
-For support, email fake@fake.com or join our Slack channel.
-
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
+For support, email alex.michael.keith@gmail.com
 
 
 ## 🚀 About Me
