@@ -9,7 +9,7 @@ Emulator Freighter
 
 
 <h4 align="center">
-A fullstack C++ application to manage emulators and roms. Automatically scrapes and manages metadata as well as displaying an interactive menu to organize and launch roms.
+A fullstack C++ application to manage emulators and roms. Automatically scrapes and manages metadata as well as displaying an interactive menu to organize and launch roms. Active builds maintained for Windows and Linux.
 
 <h4>
 
