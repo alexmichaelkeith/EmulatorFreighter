@@ -6,7 +6,7 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
-#include <Python.h>
+//#include <Python.h>
 
 // Custom headers
 #include <functions.h>
@@ -23,6 +23,7 @@ class quickScanner {
 
             string namesToScrape;
             string currentRom;
+            vector<rom> metadataNeededVector;
 
             // Read roms and emulator file
             vector<emulator> emulatorVector = readEmulators();
@@ -83,47 +84,19 @@ class quickScanner {
                             currentRom.trailingParmeters = findRomEmulatorValues(emulatorVector,currentRom, "trailingParameters");
                             currentRom.runpath = getRunPath(currentRom.emulatorpath, currentRom.midParameters, currentRom.path, currentRom.trailingParmeters);
 
-                            // Loop to create list of roms missing metadata
-                            namesToScrape = namesToScrape + to_string(romVector.size()) + ';' + cleanupFilename(currentRom.filename) + ',';
 
+                            // Add rom to metadataNeededVector
+                            metadataNeededVector.push_back(currentRom);
                             // Add rom to romVector
                             romVector.push_back(currentRom);
                         }
                     }
                 }
-            }
 
-            if (namesToScrape != "") {
 
-                namesToScrape.pop_back();
-                string s = callIntFunc("scrapeRom", namesToScrape);
-                string delimiter = ",";
-                string token;
-                int romNumber;
-                string romName;
-                string imagePath;
-
-                    vector<string> v;
-                    stringstream ss(s);
-
-                    while (ss.good()) {
-                        string substr;
-                        getline(ss, substr, ',');
-                        v.push_back(substr);
-                    }
-
-                    for (size_t i = 0; i < v.size(); i++) {
-                        romNumber = stoi(v[i]);
-                        i++;
-                        romName = v[i];
-                        i++;
-                        romVector[romNumber].nameIGDB = romName;
-                        imagePath = v[i];
-                        romVector[romNumber].imagePathIGDB = imagePath;
-                    }
-            }
 
             // Return Completed romVector
             return romVector;
         }
+     }
 };

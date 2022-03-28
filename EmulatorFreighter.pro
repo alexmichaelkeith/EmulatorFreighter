@@ -33,3 +33,4 @@ DISTFILES += \
 
 
 RC_ICONS = config\images\myappico.ico
+

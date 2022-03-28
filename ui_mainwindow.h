@@ -15,7 +15,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QScrollBar>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -34,7 +33,6 @@ public:
     QAction *actionIGDB_Score;
     QAction *actionExit;
     QWidget *centralwidget;
-    QScrollBar *verticalScrollBar;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuView;
@@ -76,10 +74,6 @@ public:
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        verticalScrollBar = new QScrollBar(centralwidget);
-        verticalScrollBar->setObjectName(QString::fromUtf8("verticalScrollBar"));
-        verticalScrollBar->setGeometry(QRect(780, 0, 20, 581));
-        verticalScrollBar->setOrientation(Qt::Vertical);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));

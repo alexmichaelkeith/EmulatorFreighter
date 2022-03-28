@@ -1,13 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <iostream>
 #include <math.h>
 #include <QGridLayout>
 #include <structures.h>
 #include <vector>
 #include <quickScanner.h>
 #include <QToolButton>
-
+#include <QScrollArea>
+#include <QScrollBar>
 // declare prototypes
 QGridLayout* renderMainWindow(int tilesPerScreen);
 
@@ -19,9 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     QWidget *w = new QWidget(this);
 
-    //QGridLayout *gridLayout = new QGridLayout;
-
-
     int tilesPerScreen;
     int screenSize = this->size().width();
     int tileWidth = 264;
@@ -29,15 +26,28 @@ MainWindow::MainWindow(QWidget *parent)
     tilesPerScreen = floor(screenSize / (tileWidth + tilePadding));
 
 
+    QScrollArea* scrollArea = new QScrollArea;
+    scrollArea->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+    scrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAsNeeded );
+    scrollArea->setWidgetResizable( true );
+    scrollArea->setWidget( w );
+
+
 
     QGridLayout *gridLayout = renderMainWindow(tilesPerScreen);
 
-    this->setCentralWidget(w);
+    this->setCentralWidget(scrollArea);
+    scrollArea->setWidget(w);
+
+
     w->setLayout(gridLayout);
-    w->setStyleSheet("background-image: url(config/images/background1.svg);");
+
+    this->setStyleSheet("background-image: url(config/images/background1.svg);");
     this->setWindowTitle("Emulator Freightor");
     this->showMaximized();
-
+    scrollArea->verticalScrollBar()->hide();
+    scrollArea->horizontalScrollBar()->hide();
+    scrollArea->setFrameShape(QFrame::NoFrame);
 }
 
 MainWindow::~MainWindow()
@@ -53,15 +63,26 @@ void MainWindow::resizeEvent(QResizeEvent* event)
    int tileWidth = 264;
    int tilePadding = 36;
    tilesPerScreen = floor(screenSize / (tileWidth + tilePadding));
-   std::cout << (std::to_string(tilesPerScreen)) << std::endl;
 
    QWidget *w = new QWidget(this);
    QGridLayout *gridLayout = renderMainWindow(tilesPerScreen);
 
-   this->setCentralWidget(w);
-   w->setLayout(gridLayout);
-   w->setStyleSheet("background-image: url(config/images/background1.svg);");
 
+   QScrollArea* scrollArea = new QScrollArea;
+   scrollArea->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+   scrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAsNeeded );
+   scrollArea->setWidgetResizable( true );
+   scrollArea->setWidget( w );
+
+
+   this->setCentralWidget(scrollArea);
+   scrollArea->setWidget(w);
+
+
+   w->setLayout(gridLayout);
+   scrollArea->verticalScrollBar()->hide();
+   scrollArea->horizontalScrollBar()->hide();
+   scrollArea->setFrameShape(QFrame::NoFrame);
 
 }
 
