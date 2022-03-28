@@ -11,10 +11,10 @@ import requests
 # Function to scrape the IGDG using rom names for metadata
 def scrapeRom(namesString):
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
+    #chrome_options.add_argument("--headless")
     names = namesString.split(',')
     finalstring = ""
-    driver = driver = webdriver.Chrome(service=Service(ChromeDriverManager().install(), options=chrome_options))
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     for name in names:
         try:
             romNumber = name.split(';')[0]
