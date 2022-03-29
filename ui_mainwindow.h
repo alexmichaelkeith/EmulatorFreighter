@@ -13,8 +13,6 @@
 #include <QtGui/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -33,11 +31,6 @@ public:
     QAction *actionIGDB_Score;
     QAction *actionExit;
     QWidget *centralwidget;
-    QMenuBar *menubar;
-    QMenu *menuFile;
-    QMenu *menuView;
-    QMenu *menuIcons;
-    QMenu *menuSettings;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -75,32 +68,6 @@ public:
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
-        menuFile = new QMenu(menubar);
-        menuFile->setObjectName(QString::fromUtf8("menuFile"));
-        menuView = new QMenu(menubar);
-        menuView->setObjectName(QString::fromUtf8("menuView"));
-        menuIcons = new QMenu(menuView);
-        menuIcons->setObjectName(QString::fromUtf8("menuIcons"));
-        menuSettings = new QMenu(menubar);
-        menuSettings->setObjectName(QString::fromUtf8("menuSettings"));
-        MainWindow->setMenuBar(menubar);
-
-        menubar->addAction(menuFile->menuAction());
-        menubar->addAction(menuSettings->menuAction());
-        menubar->addAction(menuView->menuAction());
-        menuFile->addAction(actionExit);
-        menuView->addAction(menuIcons->menuAction());
-        menuView->addAction(actionName);
-        menuView->addAction(actionDate);
-        menuView->addAction(actionIGDB_Score);
-        menuIcons->addAction(actionSmall);
-        menuIcons->addAction(actionMedium);
-        menuIcons->addAction(actionLarge);
-        menuSettings->addAction(actionMetadata);
-        menuSettings->addAction(actionEmulators);
 
         retranslateUi(MainWindow);
 
@@ -120,10 +87,6 @@ public:
         actionDate->setText(QCoreApplication::translate("MainWindow", "Date", nullptr));
         actionIGDB_Score->setText(QCoreApplication::translate("MainWindow", "IGDB Score", nullptr));
         actionExit->setText(QCoreApplication::translate("MainWindow", "Exit", nullptr));
-        menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
-        menuView->setTitle(QCoreApplication::translate("MainWindow", "View", nullptr));
-        menuIcons->setTitle(QCoreApplication::translate("MainWindow", "Tile Sizes", nullptr));
-        menuSettings->setTitle(QCoreApplication::translate("MainWindow", "Settings", nullptr));
     } // retranslateUi
 
 };

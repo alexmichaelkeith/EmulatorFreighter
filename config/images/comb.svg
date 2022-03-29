@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 2560 1600" enable-background="new 0 0 2560 1600" xml:space="preserve">
+<pattern  width="102.2669" height="177.1315" patternUnits="userSpaceOnUse" id="New_Pattern_3" viewBox="51.1331 -236.1751 102.2669 177.1315" overflow="visible">
+	<g>
+		<polygon fill="none" points="51.1331,-236.1751 153.4001,-236.1751 153.4001,-59.0436 51.1331,-59.0436 		"/>
+		<g>
+			<polygon fill="#FFC62A" stroke="#FF9500" stroke-width="2.2669" points="103.4001,-87.9111 153.4001,-116.7786 
+				203.4001,-87.9111 203.4001,-30.1761 153.4001,-1.3086 103.4001,-30.1761 			"/>
+			
+				<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-103.4296" y1="-14645.0947" x2="45.3071" y2="-14621.2725" gradientTransform="matrix(1 0 0 -1 77.6024 -14693.8701)">
+				<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0.5"/>
+				<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.25"/>
+			</linearGradient>
+			<path fill="url(#SVGID_1_)" d="M103.4001-87.9111l50-28.8675l50,28.8675c-50-28.8675-83.3333,13.6654-100,57.735
+				L103.4001-87.9111z"/>
+		</g>
+		<g>
+			<polygon fill="#FFC62A" stroke="#FF9500" stroke-width="2.2669" points="1.1331,-87.9111 51.1331,-116.7786 101.1331,-87.9111 
+				101.1331,-30.1761 51.1331,-1.3086 1.1331,-30.1761 			"/>
+			
+				<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-205.6965" y1="-14645.0947" x2="-56.9598" y2="-14621.2725" gradientTransform="matrix(1 0 0 -1 77.6024 -14693.8701)">
+				<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0.5"/>
+				<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.25"/>
+			</linearGradient>
+			<path fill="url(#SVGID_2_)" d="M1.1331-87.9111l50-28.8675l50,28.8675c-50-28.8675-83.3333,13.6654-100,57.735L1.1331-87.9111z"
+				/>
+		</g>
+		<g>
+			<polygon fill="#FFC62A" stroke="#FF9500" stroke-width="2.2669" points="52.2666,-176.4769 102.2666,-205.3444 
+				152.2666,-176.4769 152.2666,-118.7419 102.2666,-89.8744 52.2666,-118.7419 			"/>
+			
+				<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-154.5631" y1="-14556.5283" x2="-5.8263" y2="-14532.707" gradientTransform="matrix(1 0 0 -1 77.6024 -14693.8701)">
+				<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0.5"/>
+				<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.25"/>
+			</linearGradient>
+			<path fill="url(#SVGID_3_)" d="M52.2666-176.4769l50-28.8675l50,28.8675c-50-28.8675-83.3333,13.6654-100,57.735
+				L52.2666-176.4769z"/>
+		</g>
+		<g>
+			<polygon fill="#FFC62A" stroke="#FF9500" stroke-width="2.2669" points="103.4001,-265.0426 153.4001,-293.9102 
+				203.4001,-265.0426 203.4001,-207.3076 153.4001,-178.4401 103.4001,-207.3076 			"/>
+			
+				<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="-103.4296" y1="-14467.9629" x2="45.3071" y2="-14444.1406" gradientTransform="matrix(1 0 0 -1 77.6024 -14693.8701)">
+				<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0.5"/>
+				<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.25"/>
+			</linearGradient>
+			<path fill="url(#SVGID_4_)" d="M103.4001-265.0426l50-28.8675l50,28.8675c-50-28.8675-83.3333,13.6654-100,57.735
+				L103.4001-265.0426z"/>
+		</g>
+		<g>
+			<polygon fill="#FFC62A" stroke="#FF9500" stroke-width="2.2669" points="1.1331,-265.0426 51.1331,-293.9102 101.1331,-265.0426 
+				101.1331,-207.3076 51.1331,-178.4401 1.1331,-207.3076 			"/>
+			
+				<linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="-205.6965" y1="-14467.9629" x2="-56.9598" y2="-14444.1406" gradientTransform="matrix(1 0 0 -1 77.6024 -14693.8701)">
+				<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0.5"/>
+				<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.25"/>
+			</linearGradient>
+			<path fill="url(#SVGID_5_)" d="M1.1331-265.0426l50-28.8675l50,28.8675c-50-28.8675-83.3333,13.6654-100,57.735L1.1331-265.0426z
+				"/>
+		</g>
+	</g>
+</pattern>
+<rect fill="url(#New_Pattern_3)" width="2560" height="1600"/>
+</svg>

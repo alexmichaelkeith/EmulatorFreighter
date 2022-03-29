@@ -8,6 +8,7 @@
 #include <QToolButton>
 #include <QScrollArea>
 #include <QScrollBar>
+#include <iostream>
 // declare prototypes
 QGridLayout* renderMainWindow(int tilesPerScreen);
 
@@ -27,8 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     QScrollArea* scrollArea = new QScrollArea;
-    scrollArea->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-    scrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAsNeeded );
+
     scrollArea->setWidgetResizable( true );
     scrollArea->setWidget( w );
 
@@ -42,13 +42,19 @@ MainWindow::MainWindow(QWidget *parent)
 
     w->setLayout(gridLayout);
 
-    this->setStyleSheet("background-image: url(config/images/background1.svg);");
+    //this->setStyleSheet("* {color: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));"
+                        //"background: qlineargradient( x1:0 y1:0, x2:1 y2:0, stop:0 black, stop:1 grey);}");
+
+    //this->setStyleSheet("background-image: url(config/images/comb.svg);");
     this->setWindowTitle("Emulator Freightor");
     this->showMaximized();
     scrollArea->verticalScrollBar()->hide();
     scrollArea->horizontalScrollBar()->hide();
+    scrollArea->horizontalScrollBar()->setStyleSheet("QScrollBar {height:0px;}");
+    scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
     scrollArea->setFrameShape(QFrame::NoFrame);
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -69,8 +75,7 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
 
    QScrollArea* scrollArea = new QScrollArea;
-   scrollArea->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-   scrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAsNeeded );
+
    scrollArea->setWidgetResizable( true );
    scrollArea->setWidget( w );
 
@@ -82,6 +87,8 @@ void MainWindow::resizeEvent(QResizeEvent* event)
    w->setLayout(gridLayout);
    scrollArea->verticalScrollBar()->hide();
    scrollArea->horizontalScrollBar()->hide();
+   scrollArea->horizontalScrollBar()->setStyleSheet("QScrollBar {height:0px;}");
+   scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
    scrollArea->setFrameShape(QFrame::NoFrame);
 
 }
@@ -103,7 +110,6 @@ QGridLayout* renderMainWindow(int tilesPerScreen)
 {
     config myConfig;
     myConfig = readConfig();
-
     quickScanner myscanner;
 
     vector<rom> romVector;
@@ -118,43 +124,38 @@ QGridLayout* renderMainWindow(int tilesPerScreen)
     int romcount = romVector.size() - 1;
     int row = 0;
     string name;
-    while (romcount > 0 && tilesPerScreen > 1) {
 
-        for (int j = 0;j<tilesPerScreen-1;j++) {
-            name = romVector[romcount].filename;
-            QToolButton *name = new QToolButton();
-            name->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-            name->setStyleSheet("font: Georgia;font-size: 12px;font: Bold;font: white;background-color: rgba(255, 255, 255, 0);color: #FFFFFF;");
-            name->setText(findName(romVector[romcount]).c_str());
-            name->setMinimumWidth(264);
-            name->setMinimumHeight(400);
-            name->setMaximumWidth(264);
-            name->setMaximumHeight(400);
-            name->setIcon(QIcon(findImage(romVector[romcount]).c_str()));
-            name->setIconSize(QSize(264, 352));
+    int column = 0;
 
-            QObject::connect(name, &QToolButton::clicked, [=]()
-            {
-                cout << romVector[romcount].runpath.c_str() << endl;
-                system(romVector[romcount].runpath.c_str());
-                   });
 
-            gridLayout->addWidget(name,row,j,1,1);
+    for (int i=0;i<=romcount;i++) {
 
-            if (romcount == 0) {break;}
-            romcount --;
-        }
+                name = romVector[romcount].filename;
+                QToolButton *name = new QToolButton();
+                name->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+                name->setStyleSheet("font: Georgia;font-size: 12px;font: Bold;font: white;background-color: rgba(255, 255, 255, 0);color: #FFFFFF;");
+                name->setText(findName(romVector[romcount]).c_str());
+                name->setMinimumWidth(264);
+                name->setMinimumHeight(400);
+                name->setMaximumWidth(264);
+                name->setMaximumHeight(400);
+                name->setIcon(QIcon(findImage(romVector[romcount]).c_str()));
+                name->setIconSize(QSize(264, 352));
+                QObject::connect(name, &QToolButton::clicked, [=]()
+                {
+                    cout << romVector[romcount].runpath.c_str() << endl;
+                    system(romVector[romcount].runpath.c_str());
+                       });
+
+                gridLayout->addWidget(name,row,column,1,1);
+
+
+    column++;
+    if (column==tilesPerScreen-1){
+        column = 0;
         row++;
     }
-    return(gridLayout);
 }
 
-int tilesPerRow(MainWindow MainWindow)
-{
-    int tilesPerScreen;
-    int screenSize = MainWindow.size().width();
-    int tileWidth = 264;
-    int tilePadding = 36;
-    tilesPerScreen = floor(screenSize / (tileWidth + tilePadding));
-    return(tilesPerScreen);
+    return(gridLayout);
 }
