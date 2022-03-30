@@ -19,4 +19,7 @@ private:
 
 private:
     void resizeEvent(QResizeEvent*);
+
+private:
+    void timerEvent(QTimerEvent *te);
 };

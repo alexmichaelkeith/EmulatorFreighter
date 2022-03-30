@@ -36,5 +36,7 @@ struct config {
 
     public:
         std::vector<std::string> romDirectories;
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(config, romDirectories);
+        int tileHeight;
+        int tileWidth;
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(config, romDirectories, tileHeight, tileWidth);
 };
