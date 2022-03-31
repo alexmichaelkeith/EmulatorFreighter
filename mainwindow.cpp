@@ -11,6 +11,8 @@
 #include <iostream>
 #include <QTimer>
 #include <QTimerEvent>
+#include "Python.h"
+
 
 // declare prototypes
 QGridLayout* renderMainWindow(int tilesPerScreen);
@@ -95,6 +97,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     vector<rom> metaQueue;
 
+
+    string funcName = "scrapeRom";
+    string query = "test";
+
     for(int i=0;i<romVector.size();i++){
 
 
@@ -108,23 +114,62 @@ MainWindow::MainWindow(QWidget *parent)
             // Create temp JSON file
 
 
-                std::fstream fout;
+            std::fstream fout;
 
-                // opens an existing json file or creates a new file.
-                fout.open("config/paths/temp.json", std::ofstream::out | std::ofstream::trunc);
-                fout.close();
+            // opens an existing json file or creates a new file.
+            fout.open("config/paths/temp.json", std::ofstream::out | std::ofstream::trunc);
+            fout.close();
 
-                fout.open("config/paths/temp.json", ios::out | ios::app);
-                json js = metaQueue;
-                //fout << j;
-                fout << std::setw(4) << js << std::endl;
+            fout.open("config/paths/temp.json", ios::out | ios::app);
+            json js = metaQueue;
+            //fout << j;
+            fout << std::setw(4) << js << std::endl;
 
 
             // Call Python to read file
 
+            char* procname = new char[funcName.length() + 1];
+            strcpy(procname, funcName.c_str());
 
+            char* paramval = new char[query.length() + 1];
+            strcpy(paramval, query.c_str());
+
+            PyObject* pName, * pModule, * pDict, * pFunc, * pValue = nullptr, * presult = nullptr;
+            // Initialize the Python Interpreter
+            Py_Initialize();
+            // Build the name object
+            pName = PyUnicode_FromString((char*)"scrapeIGDB");
+            // Load the module object
+            pModule = PyImport_Import(pName);
+            // pDict is a borrowed reference
+            pDict = PyModule_GetDict(pModule);
+            // pFunc is also a borrowed reference
+            pFunc = PyDict_GetItemString(pDict, procname);
+            if (PyCallable_Check(pFunc))
+            {
+                pValue = Py_BuildValue("(z)", paramval);
+                PyErr_Print();
+                presult = PyObject_CallObject(pFunc, pValue);
+                PyErr_Print();
+            }
+            else
+            {
+                PyErr_Print();
+            }
+            //printf("Result is %d\n", _PyUnicode_AsString(presult));
+            Py_DECREF(pValue);
+            // Clean up
+            Py_DECREF(pModule);
+            Py_DECREF(pName);
+            // Finish the Python Interpreter
+            Py_Finalize();
+
+            // clean
+            delete[] procname;
+            delete[] paramval;
 
             // Get Python return
+            //return _PyUnicode_AsString(presult);
 
 
             // update MainWindow
