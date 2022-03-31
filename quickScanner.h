@@ -23,7 +23,6 @@ class quickScanner {
 
             string namesToScrape;
             string currentRom;
-            vector<rom> metadataNeededVector;
 
             // Read roms and emulator file
             vector<emulator> emulatorVector = readEmulators();
@@ -85,13 +84,13 @@ class quickScanner {
                             currentRom.runpath = getRunPath(currentRom.emulatorpath, currentRom.midParameters, currentRom.path, currentRom.trailingParmeters);
 
 
-                            // Add rom to metadataNeededVector
-                            metadataNeededVector.push_back(currentRom);
                             // Add rom to romVector
                             romVector.push_back(currentRom);
                         }
                     }
                 }
+
+            // Output metadataNeededVector to JSON
 
 
 

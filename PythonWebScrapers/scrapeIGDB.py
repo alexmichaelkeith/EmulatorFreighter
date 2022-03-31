@@ -6,22 +6,32 @@ from webdriver_manager.utils import ChromeType
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import requests
-
+import json
 
 # Function to scrape the IGDG using rom names for metadata
-def scrapeRom(namesString):
+def scrapeRom(test):
     chrome_options = Options()
     #chrome_options.add_argument("--headless")
-    names = namesString.split(',')
-    finalstring = ""
+
+
+    f = open('config/paths/temp.json')
+
+    # returns JSON object as
+    # a dictionary
+    roms = json.load(f)
+
+
+
+
+
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    for name in names:
+    for rom in roms:
         try:
-            romNumber = name.split(';')[0]
-            name = name.split(';')[1]
-            name = name.replace("-", " ")
-            name = name.replace("(USA)", " ")
-            name = name.replace(".", " ")
+            #romNumber = name.split(';')[0]
+            #name = name.split(';')[1]
+            #name = name.replace("-", " ")
+            #name = name.replace("(USA)", " ")
+            #name = name.replace(".", " ")
 
             try:
                 driver.get("https://www.igdb.com/search?type=1&q=" + name)

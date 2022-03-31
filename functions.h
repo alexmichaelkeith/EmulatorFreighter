@@ -138,6 +138,7 @@ void outputConfig(config myConfig) {
     fout << std::setw(4) << j << std::endl;
 }
 
+
 // Function to open and read the config file
 config readConfig() {
 
