@@ -95,7 +95,8 @@ class quickScanner {
 
 
             // Return Completed romVector
-            return romVector;
         }
+            return romVector;
+
      }
 };

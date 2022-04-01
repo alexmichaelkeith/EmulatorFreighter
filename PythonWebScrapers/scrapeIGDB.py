@@ -8,24 +8,26 @@ from selenium.webdriver.chrome.service import Service
 import requests
 import json
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Function to scrape the IGDG using rom names for metadata
 def scrapeRom(test):
     chrome_options = Options()
-    #chrome_options.add_argument("--headless")
-
-
-    f = open('config/paths/temp.json')
-
-    # returns JSON object as
-    # a dictionary
-    roms = json.load(f)
-
-
-
-
-
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    for rom in roms:
+    chrome_options.add_argument("--headless")
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()),options=chrome_options)
+    for rom in test:
         try:
             #romNumber = name.split(';')[0]
             #name = name.split(';')[1]
@@ -63,6 +65,11 @@ def scrapeRom(test):
             name = "No Match Found"
             fileName = "metadata/covermissing.png"
         driver.delete_all_cookies()
-        finalstring = finalstring + romNumber + ',' + name + ',' + fileName + ','
+        finalstring = finalstring + ',' + name + ',' + fileName + ','
     driver.quit()
     return finalstring[:-1]
+
+
+
+test = scrapeRom(["Mario 64", "Mario Kart 8"])
+print(test)
