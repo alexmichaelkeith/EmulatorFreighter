@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import requests
 import json
+import os
 
 # Function to scrape the IGDG using rom names for metadata
 def scrapeRom(roms):
@@ -59,35 +60,35 @@ def scrapeRom(roms):
 
 
 
-def metadata(test):
+
+curDir = os.getcwd()
 
 
-    # Open metadata queue json
-    f = open('C:\EmulatorFreighter\config\paths/temp.json')
-    queueRoms = json.load(f)
-    f.close()
+# Open metadata queue json
+f = open(curDir + 'config/paths/temp.json')
+queueRoms = json.load(f)
+f.close()
 
 
-    # Open roms json
-    f = open('C:\EmulatorFreighter\config\paths/roms.json')
-    roms = json.load(f)
-    f.close()
+# Open roms json
+f = open(curDir + 'config/paths/roms.json')
+roms = json.load(f)
+f.close()
 
 
-    # Loop to search for matching paths and search for metadata
-    for replaced in roms:
-        for replacer in queueRoms:
-            if replaced["path"] == replacer["path"]:
-                # Scrape rom and update metadata
-                replaced["nameIGDB"], replaced["imagePathIGDB"] = scrapeRom(replaced)
+# Loop to search for matching paths and search for metadata
+for replaced in roms:
+    for replacer in queueRoms:
+        if replaced["path"] == replacer["path"]:
+            # Scrape rom and update metadata
+            replaced["nameIGDB"], replaced["imagePathIGDB"] = scrapeRom(replaced)
 
 
 
-    # Serializing json 
-    json_object = json.dumps(roms, indent = 4)
+# Serializing json 
+json_object = json.dumps(roms, indent = 4)
   
-    # Writing to roms.json
-    with open("C:\EmulatorFreighter\config\paths/roms.json", "w") as outfile:
-        outfile.write(json_object)
+# Writing to roms.json
+with open(curDir + 'config/paths/roms.json', "w") as outfile:
+    outfile.write(json_object)
 
-    return("Youre gay")

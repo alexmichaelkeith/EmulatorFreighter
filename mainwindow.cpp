@@ -96,8 +96,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 // THREAD HERE
-std::thread t1(threadingTest, romVector);
+    //std::thread t1(threadingTest, romVector);
 
+    threadingTest(romVector);
 
 }
 
@@ -231,82 +232,64 @@ void threadingTest(vector<rom> romVector) {
     vector<rom> metaQueue;
     string funcName = "scrapeRom";
     string query = "test";
-    for(int i=0;i<romVector.size();i++){
 
-        for(int j =0;j<3;j++) {
+    bool flag = true;
+    while (flag == true) {
 
-            if (romVector[i].nameIGDB == "") {
-                // Add rom to Queue if there is no metadata
-                try {metaQueue.push_back(romVector[i]);}catch (...) {}
+        flag = false;
+        for(int i=0;i<romVector.size();i++){
+
+            // If any roms are found without image or invalid image call python scanner and flag that another loop is needed
+            if (romVector[i].imagePathIGDB == "" || !exists(romVector[i].imagePathIGDB)){
+                flag = true;
+
+                // Call Python to scrape three roms
+
+                char* procname = new char[funcName.length() + 1];
+                strcpy(procname, funcName.c_str());
+
+                char* paramval = new char[query.length() + 1];
+                strcpy(paramval, query.c_str());
+
+                PyObject* pName, * pModule, * pDict, * pFunc, * pValue = nullptr, * presult = nullptr;
+                // Initialize the Python Interpreter
+                Py_Initialize();
+                // Build the name object
+                pName = PyUnicode_FromString((char*)"scrapeIGDB");
+                // Load the module object
+                pModule = PyImport_Import(pName);
+                // pDict is a borrowed reference
+                pDict = PyModule_GetDict(pModule);
+                // pFunc is also a borrowed reference
+                pFunc = PyDict_GetItemString(pDict, procname);
+                if (PyCallable_Check(pFunc))
+                {
+                    pValue = Py_BuildValue("(z)", paramval);
+                    PyErr_Print();
+                    presult = PyObject_CallObject(pFunc, pValue);
+                    PyErr_Print();
+                }
+                else
+                {
+                    PyErr_Print();
+                }
+                //printf("Result is %d\n", _PyUnicode_AsString(presult));
+                Py_DECREF(pValue);
+                // Clean up
+                Py_DECREF(pModule);
+                Py_DECREF(pName);
+                // Finish the Python Interpreter
+                Py_Finalize();
+
+                // clean
+                delete[] procname;
+                delete[] paramval;
+
+                // Get Python return
+                //return _PyUnicode_AsString(presult);
             }
-
-            // Create temp JSON file
-
-            cout << "here";
-            std::fstream fout;
-
-            // opens an existing json file or creates a new file.
-            fout.open("config/paths/temp.json", std::ofstream::out | std::ofstream::trunc);
-            fout.close();
-
-            fout.open("config/paths/temp.json", ios::out | ios::app);
-            json js = metaQueue;
-            //fout << j;
-            fout << std::setw(4) << js << std::endl;
-
-
-            // Call Python to read file
-
-            char* procname = new char[funcName.length() + 1];
-            strcpy(procname, funcName.c_str());
-
-            char* paramval = new char[query.length() + 1];
-            strcpy(paramval, query.c_str());
-
-            PyObject* pName, * pModule, * pDict, * pFunc, * pValue = nullptr, * presult = nullptr;
-            // Initialize the Python Interpreter
-            Py_Initialize();
-            // Build the name object
-            pName = PyUnicode_FromString((char*)"scrapeIGDB");
-            // Load the module object
-            pModule = PyImport_Import(pName);
-            // pDict is a borrowed reference
-            pDict = PyModule_GetDict(pModule);
-            // pFunc is also a borrowed reference
-            pFunc = PyDict_GetItemString(pDict, procname);
-            if (PyCallable_Check(pFunc))
-            {
-                pValue = Py_BuildValue("(z)", paramval);
-                PyErr_Print();
-                presult = PyObject_CallObject(pFunc, pValue);
-                PyErr_Print();
-            }
-            else
-            {
-                PyErr_Print();
-            }
-            //printf("Result is %d\n", _PyUnicode_AsString(presult));
-            Py_DECREF(pValue);
-            // Clean up
-            Py_DECREF(pModule);
-            Py_DECREF(pName);
-            // Finish the Python Interpreter
-            Py_Finalize();
-
-            // clean
-            delete[] procname;
-            delete[] paramval;
-
-            // Get Python return
-            //return _PyUnicode_AsString(presult);
-
-
-            // update MainWindow
-
-
-            // Clear queue
         }
-        metaQueue.clear();
+        // reload mainWindow
     }
 }
 

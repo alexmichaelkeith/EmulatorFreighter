@@ -8,68 +8,85 @@ from selenium.webdriver.chrome.service import Service
 import requests
 import json
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Function to scrape the IGDG using rom names for metadata
-def scrapeRom(test):
+def scrapeRom(roms):
+
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
+    #chrome_options.add_argument("--headless")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()),options=chrome_options)
-    for rom in test:
+
+
+    for rom in roms:
         try:
-            #romNumber = name.split(';')[0]
-            #name = name.split(';')[1]
-            #name = name.replace("-", " ")
-            #name = name.replace("(USA)", " ")
-            #name = name.replace(".", " ")
+            IGDBSearchQuery = rom["filename"]
+
+            IGDBSearchQuery = IGDBSearchQuery.replace("-", " ")
+            IGDBSearchQuery = IGDBSearchQuery.replace("(USA)", " ")
+            IGDBSearchQuery = IGDBSearchQuery.replace(".", " ")
 
             try:
-                driver.get("https://www.igdb.com/search?type=1&q=" + name)
+                driver.get("https://www.igdb.com/search?type=1&q=" + IGDBSearchQuery)
                 time.sleep(2)
-                test = driver.find_element_by_css_selector('div.game-result:nth-child(1) > div:nth-child(1) > '
+                firstResult = driver.find_element_by_css_selector('div.game-result:nth-child(1) > div:nth-child(1) > '
                                                            'div:nth-child(2) > '
                                                            'h4:nth-child(1) > a:nth-child(1)').get_attribute('href')
-                driver.get(test)
+                driver.get(firstResult)
                 time.sleep(2)
                 src = driver.find_element_by_css_selector('.gamepage-cover > img:nth-child(1)').get_attribute('src')
-                name = unidecode.unidecode(driver.find_element_by_css_selector('.banner-title').text[:-4])
+                nameIGDB = unidecode.unidecode(driver.find_element_by_css_selector('.banner-title').text[:-4])
             except:
-                driver.get("https://www.igdb.com/search?type=1&q=" + name)
+                driver.get("https://www.igdb.com/search?type=1&q=" + IGDBSearchQuery)
                 time.sleep(5)
-                test = driver.find_element_by_css_selector(
+                firstResult = driver.find_element_by_css_selector(
                     'div.game-result:nth-child(1) > div:nth-child(1) > div:nth-child(2) > '
                     'h4:nth-child(1) > a:nth-child(1)').get_attribute('href')
-                driver.get(test)
+                driver.get(firstResult)
                 time.sleep(5)
                 src = driver.find_element_by_css_selector('.gamepage-cover > img:nth-child(1)').get_attribute('src')
-                name = unidecode.unidecode(driver.find_element_by_css_selector('.banner-title').text[:-4])
+                IGDBSearchQuery = unidecode.unidecode(driver.find_element_by_css_selector('.banner-title').text[:-4])
             response = requests.get(src)
-            fileName = "metadata/" + name + ".png"
+            fileName = "metadata/" + nameIGDB + ".png"
             file = open(fileName, "wb")
             file.write(response.content)
             file.close()
         except:
             src = "No Match Found"
-            name = "No Match Found"
+            nameIGDB = "No Match Found"
             fileName = "metadata/covermissing.png"
         driver.delete_all_cookies()
-        finalstring = finalstring + ',' + name + ',' + fileName + ','
     driver.quit()
-    return finalstring[:-1]
+    return nameIGDB, fileName
 
 
 
-test = scrapeRom(["Mario 64", "Mario Kart 8"])
-print(test)
+
+
+
+# Open metadata queue json
+f = open('/config/paths/temp.json')
+queueRoms = json.load(f)
+f.close()
+
+
+# Open roms json
+f = open('/config/paths/roms.json')
+roms = json.load(f)
+f.close()
+
+
+# Loop to search for matching paths and search for metadata
+for replaced in roms:
+    for replacer in queueRoms:
+        if replaced["path"] == replacer["path"]:
+            # Scrape rom and update metadata
+            replaced["nameIGDB"], replaced["imagePathIGDB"] = scrapeRom(replaced)
+
+
+
+# Serializing json 
+json_object = json.dumps(roms, indent = 4)
+  
+# Writing to roms.json
+with open("config\paths/roms.json", "w") as outfile:
+    outfile.write(json_object)
+
