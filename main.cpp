@@ -9,6 +9,11 @@ int main(int argc, char *argv[])
     // Initialize Main Window
     MainWindow *mainWindow = new MainWindow;
 
+
+
+    mainWindow->setCentralWidget(scrollArea);
+
+
     // Execute QApplication
     return app.exec();
 }

@@ -73,6 +73,12 @@ MainWindow::MainWindow(QWidget *parent)
     // threading metadata
     threadingTest(romVector);
 
+    //relog
+    gridLayout = renderMainWindow(tilesPerScreen);
+    this->setCentralWidget(scrollArea);
+    scrollArea->setWidget(w);
+    w->setLayout(gridLayout);
+
 }
 
 
@@ -141,6 +147,7 @@ void MainWindow::timerEvent(QTimerEvent *te) {
 
 QGridLayout* renderMainWindow(int tilesPerScreen)
 {
+    MainWindow* mainWindow;
     config myConfig;
     myConfig = readConfig();
     quickScanner myscanner;
@@ -213,7 +220,7 @@ void threadingTest(vector<rom> romVector) {
 
             // If any roms are found without image or invalid image call python scanner and flag that another loop is needed
             if (romVector[i].imagePathIGDB == "" || !exists(romVector[i].imagePathIGDB)){
-                flag = true;
+                //flag = true;
 
                 // Call Python to scrape three roms
 
