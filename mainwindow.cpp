@@ -70,34 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle("Emulator Freightor");
     this->show();
 
-    // PSUEDO
-
-    // METADATA COLLECTION
-
-    // Access metaneeded vector
-
-    // LOOP START through and output to metaTemp.json in increments of 3 //error handle if not 1 or 2 left
-
-        // set those three tile posters to in progress image
-
-        // PYTHON
-
-            // call python script which opens json and downloads metadata
-
-            // python opens roms.json and updates name and meta locations
-
-            // python sends back success or failure string
-
-        // PYTHON END
-
-        // set those three posters to new metadata
-
-    // LOOP END
-
-
-// THREAD HERE
-    //std::thread t1(threadingTest, romVector);
-
+    // threading metadata
     threadingTest(romVector);
 
 }
@@ -230,12 +203,11 @@ QGridLayout* renderMainWindow(int tilesPerScreen)
 void threadingTest(vector<rom> romVector) {
 
     vector<rom> metaQueue;
-    string funcName = "scrapeRom";
+    string funcName = "metadata";
     string query = "test";
 
     bool flag = true;
     while (flag == true) {
-
         flag = false;
         for(int i=0;i<romVector.size();i++){
 
