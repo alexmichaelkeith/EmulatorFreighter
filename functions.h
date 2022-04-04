@@ -10,6 +10,7 @@
 #include <sstream>
 #include <string>
 #include "json.hpp"
+#include <mainwindow.h>
 
 // Python.h
 #pragma push_macro("slots")
@@ -27,7 +28,7 @@ using namespace filesystem;
 using json = nlohmann::json;
 
 // Function to read roms json file
-vector<rom> readRoms() {
+inline vector<rom> readRoms() {
 
     std::fstream fin;
     vector<rom> romVector;
@@ -45,7 +46,7 @@ vector<rom> readRoms() {
 }
 
 // Function to read emulators json file
-vector<emulator> readEmulators() {
+inline vector<emulator> readEmulators() {
 
     std::fstream fin;
     vector<emulator> emulatorVector;
@@ -63,7 +64,7 @@ vector<emulator> readEmulators() {
 }
 
 // Function used to call Python script and get a return string
-string callIntFunc(string funcName, string query)
+inline string callIntFunc(string funcName, string query)
 {
 
     char* procname = new char[funcName.length() + 1];
@@ -109,7 +110,7 @@ string callIntFunc(string funcName, string query)
 }
 
 // Function to output roms as json file
-void outputRoms(vector<rom> romVector) {
+inline void outputRoms(vector<rom> romVector) {
 
     std::fstream fout;
 
@@ -124,7 +125,7 @@ void outputRoms(vector<rom> romVector) {
 }
 
 // Function to output settings as json file
-void outputConfig(config myConfig) {
+inline void outputConfig(config myConfig) {
 
     std::fstream fout;
 
@@ -140,7 +141,7 @@ void outputConfig(config myConfig) {
 
 
 // Function to open and read the config file
-config readConfig() {
+inline config readConfig() {
 
     std::fstream fin;
     fin.open("config/paths/config.json", ios::in | ios::app);
@@ -156,7 +157,7 @@ config readConfig() {
 }
 
 // Function to return the correct emulator for each rom
-string findRomEmulatorValues(vector<emulator> emulatorVector, rom currentRom, string value) {
+inline string findRomEmulatorValues(vector<emulator> emulatorVector, rom currentRom, string value) {
 
     bool flag = false;
     for (int i = 0; i< emulatorVector.size();i++) {
@@ -193,7 +194,7 @@ string findRomEmulatorValues(vector<emulator> emulatorVector, rom currentRom, st
 }
 
 // Function to find the compatible extensions
-vector<string> getCompatibleExtensions(vector<emulator> emulatorVector, vector<string> compatibleExtensions) {
+inline vector<string> getCompatibleExtensions(vector<emulator> emulatorVector, vector<string> compatibleExtensions) {
 
     for (int i = 0; i< emulatorVector.size();i++) {
 
@@ -207,7 +208,7 @@ vector<string> getCompatibleExtensions(vector<emulator> emulatorVector, vector<s
 }
 
 // Function to find image for widget tiles
-string findImage(rom currentRom) {
+inline string findImage(rom currentRom) {
 
     if (exists(currentRom.imagePathIGDB)) {
         return currentRom.imagePathIGDB;
@@ -218,7 +219,7 @@ string findImage(rom currentRom) {
 }
 
 // Function to find name for widget tiles
-string findName(rom currentRom) {
+inline string findName(rom currentRom) {
 
     if (currentRom.nameIGDB != "No Match Found" || currentRom.nameIGDB != "") {
         return currentRom.nameIGDB;
@@ -229,7 +230,7 @@ string findName(rom currentRom) {
 }
 
 // Function to find run path for roms
-string getRunPath(string emulatorPath, string midParameters, string path, string trailingParameters) {
+inline string getRunPath(string emulatorPath, string midParameters, string path, string trailingParameters) {
 
     string runPath;
     runPath = "\"\"" + emulatorPath + "\" " + midParameters + " \"" + path + "\"" + trailingParameters + "\"";
@@ -237,9 +238,10 @@ string getRunPath(string emulatorPath, string midParameters, string path, string
 }
 
 // Function to remove commas from filename
-string cleanupFilename(string fileName) {
+inline string cleanupFilename(string fileName) {
 
     // Replace commas and semicolons to preserve csv file accuracy
     replace(fileName.begin(), fileName.end(), ',', ' '); // replace all ',' to ' '
     return fileName;
 }
+

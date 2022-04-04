@@ -1,151 +1,39 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <math.h>
-#include <QGridLayout>
-#include <structures.h>
-#include <vector>
-#include <quickScanner.h>
-#include <QToolButton>
-#include <QScrollArea>
-#include <QScrollBar>
-#include <iostream>
+
+
 #include <QTimer>
 #include <QTimerEvent>
-#include "Python.h"
-#include<thread>
-
-
-// declare prototypes
-QGridLayout* renderMainWindow(int tilesPerScreen);
-void threadingTest(vector<rom> romVector);
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
-
-    QWidget *w = new QWidget(this);
-
-    config myConfig;
-    myConfig = readConfig();
-
-    quickScanner myscanner;
-
-    vector<rom> romVector;
-    romVector = myscanner.scanRoms(myConfig);
-
-
-    int tilesPerScreen;
-    int screenSize = this->size().width();
-    tilesPerScreen = floor(screenSize / (myConfig.tileWidth));
-
-
-    QScrollArea* scrollArea = new QScrollArea;
-
-    scrollArea->setWidgetResizable( true );
-
-    QGridLayout *gridLayout = renderMainWindow(tilesPerScreen);
-
-    this->setCentralWidget(scrollArea);
-    scrollArea->setWidget(w);
-
-
-    w->setLayout(gridLayout);
-
-    //this->setStyleSheet("* {color: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));"
-                        //"background: qlineargradient( x1:0 y1:0, x2:1 y2:0, stop:0 black, stop:1 grey);}");
-
-    //this->setStyleSheet("background-image: url(config/images/cf.svg);");
-
-    scrollArea->verticalScrollBar()->hide();
-    scrollArea->horizontalScrollBar()->hide();
-    scrollArea->horizontalScrollBar()->setStyleSheet("QScrollBar {height:0px;}");
-    scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
-    scrollArea->setFrameShape(QFrame::NoFrame);
+#include "quickScanner.h"
 
 
 
 
-    this->setWindowTitle("Emulator Freightor");
-    this->show();
-
-    // threading metadata
-    threadingTest(romVector);
-
-    //relog
-    gridLayout = renderMainWindow(tilesPerScreen);
-    this->setCentralWidget(scrollArea);
-    scrollArea->setWidget(w);
-    w->setLayout(gridLayout);
-
-}
+#include <QGridLayout>
+#include <QScrollArea>
+#include <QScrollBar>
+#include <QToolButton>
 
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+
+
 
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
     QMainWindow::resizeEvent(event);
     int timerId = 0;
 
+    // FIXME killTimer not killing timer. error with id?
     if (timerId){
         killTimer(timerId);
         timerId = 0;
     }
-    timerId = startTimer(500/*delay beetween ends of resize and your action*/);
+    timerId = startTimer(1000/*delay beetween ends of resize and your action*/);
 
 }
 
 
-
-
-void MainWindow::timerEvent(QTimerEvent *te) {
-
-
-    int timerId = 0;
-
-    config myConfig;
-    myConfig = readConfig();
-
-
-    int tilesPerScreen;
-    int screenSize = this->size().width();
-    tilesPerScreen = floor(screenSize / (myConfig.tileWidth));
-
-    QWidget *w = new QWidget(this);
-    QGridLayout *gridLayout = renderMainWindow(tilesPerScreen);
-
-
-    QScrollArea* scrollArea = new QScrollArea;
-
-    scrollArea->setWidgetResizable( true );
-    scrollArea->setWidget( w );
-
-
-    this->setCentralWidget(scrollArea);
-    scrollArea->setWidget(w);
-
-
-    w->setLayout(gridLayout);
-    scrollArea->verticalScrollBar()->hide();
-    scrollArea->horizontalScrollBar()->hide();
-    scrollArea->horizontalScrollBar()->setStyleSheet("QScrollBar {height:0px;}");
-    scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
-    scrollArea->setFrameShape(QFrame::NoFrame);
-
-
-    killTimer(te->timerId());
-    timerId = 0;
-
-}
-
-
-
-QGridLayout* renderMainWindow(int tilesPerScreen)
+QGridLayout* renderGridLayout(int tilesPerScreen)
 {
     MainWindow* mainWindow;
     config myConfig;
@@ -207,7 +95,42 @@ QGridLayout* renderMainWindow(int tilesPerScreen)
     return(gridLayout);
 }
 
-void threadingTest(vector<rom> romVector) {
+
+void renderMainWindow(MainWindow *mainWindow){
+
+    config myConfig;
+    myConfig = readConfig();
+
+
+    int tilesPerScreen;
+    int screenSize = mainWindow->size().width();
+    tilesPerScreen = floor(screenSize / (myConfig.tileWidth));
+
+    QWidget *w = new QWidget(mainWindow);
+    QGridLayout *gridLayout = renderGridLayout(tilesPerScreen);
+
+
+    QScrollArea* scrollArea = new QScrollArea;
+
+    scrollArea->setWidgetResizable( true );
+    scrollArea->setWidget( w );
+
+
+    mainWindow->setCentralWidget(scrollArea);
+    scrollArea->setWidget(w);
+
+
+    w->setLayout(gridLayout);
+    scrollArea->verticalScrollBar()->hide();
+    scrollArea->horizontalScrollBar()->hide();
+    scrollArea->horizontalScrollBar()->setStyleSheet("QScrollBar {height:0px;}");
+    scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
+    scrollArea->setFrameShape(QFrame::NoFrame);
+
+}
+
+void renderMetaData(MainWindow *mainWindow){
+
 
     vector<rom> metaQueue;
     string funcName = "metadata";
@@ -270,5 +193,32 @@ void threadingTest(vector<rom> romVector) {
         }
         // reload mainWindow
     }
+}
+
+
+void MainWindow::timerEvent(QTimerEvent *te) {
+
+    renderMainWindow(this);
+    killTimer(te->timerId());
+}
+
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+    renderMainWindow(this);
+
+
+    this->setWindowTitle("Emulator Freightor");
+    this->show();
+}
+
+
+MainWindow::~MainWindow()
+{
+    delete ui;
 }
 

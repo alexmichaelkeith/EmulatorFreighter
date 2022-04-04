@@ -1,5 +1,7 @@
-#include "mainwindow.h"
 #include <QApplication>
+#include <mainwindow.h>
+#include "quickScanner.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -10,10 +12,13 @@ int main(int argc, char *argv[])
     MainWindow *mainWindow = new MainWindow;
 
 
+    //threadingtest();
 
-    mainWindow->setCentralWidget(scrollArea);
 
 
     // Execute QApplication
     return app.exec();
 }
+
+
+
