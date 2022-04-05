@@ -35,7 +35,6 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
 QGridLayout* renderGridLayout(int tilesPerScreen)
 {
-    MainWindow* mainWindow;
     config myConfig;
     myConfig = readConfig();
     quickScanner myscanner;
@@ -132,6 +131,13 @@ void renderMainWindow(MainWindow *mainWindow){
 void renderMetaData(MainWindow *mainWindow){
 
 
+    config myConfig;
+    myConfig = readConfig();
+    quickScanner myscanner;
+
+    vector<rom> romVector;
+    romVector = myscanner.scanRoms(myConfig);
+
     vector<rom> metaQueue;
     string funcName = "metadata";
     string query = "test";
@@ -191,7 +197,7 @@ void renderMetaData(MainWindow *mainWindow){
                 //return _PyUnicode_AsString(presult);
             }
         }
-        // reload mainWindow
+        renderMainWindow(mainWindow);
     }
 }
 
@@ -214,6 +220,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->setWindowTitle("Emulator Freightor");
     this->show();
+
+    renderMetaData(this);
 }
 
 
