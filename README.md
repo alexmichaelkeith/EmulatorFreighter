@@ -70,9 +70,11 @@ QT Creator
     
 ## Roadmap
 
-- Additional browser support
+- Additional Emulators for download
 
-- Add more integrations
+- Metadata scraping migrated to C++
+  
+- Migration to MSVC from MINGW
 
   
 ## Documentation
