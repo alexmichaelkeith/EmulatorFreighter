@@ -32,9 +32,9 @@ A fullstack C++ application to manage emulators and roms. Automatically scrapes 
 
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
+- Intelligent ROM scanning
+- One time emulator configuration
+- IGDB Metadata scraping
 - Cross platform
 
 
