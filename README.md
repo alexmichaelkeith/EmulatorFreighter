@@ -32,9 +32,9 @@ A fullstack C++ application to manage emulators and roms. Automatically scrapes 
 
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
+- Intelligent ROM scanning
+- One time emulator configuration
+- IGDB Metadata scraping
 - Cross platform
 
 
@@ -70,9 +70,11 @@ QT Creator
     
 ## Roadmap
 
-- Additional browser support
+- Additional Emulators for download
 
-- Add more integrations
+- Metadata scraping migrated to C++
+  
+- Migration to MSVC from MINGW
 
   
 ## Documentation
