@@ -14,6 +14,7 @@
 #include <QScrollBar>
 #include <QToolButton>
 
+#include <thread>
 
 
 
@@ -59,21 +60,21 @@ QGridLayout* renderGridLayout(int tilesPerScreen)
 
     for (int i=0;i<=romcount;i++) {
 
-                name = romVector[romcount].filename;
+                name = romVector[i].filename;
                 QToolButton *name = new QToolButton();
                 name->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
                 name->setStyleSheet("font: Georgia;font-size: 12px;font: Bold;font: white;background-color: rgba(255, 255, 255, 0);color: #FFFFFF;");
-                name->setText(findName(romVector[romcount]).c_str());
+                name->setText(findName(romVector[i]).c_str());
                 name->setMinimumWidth(myConfig.tileWidth);
                 name->setMinimumHeight(myConfig.tileHeight + (myConfig.tileHeight / 10));
                 name->setMaximumWidth(myConfig.tileWidth);
                 name->setMaximumHeight(myConfig.tileHeight + (myConfig.tileHeight / 10));
-                name->setIcon(QIcon(findImage(romVector[romcount]).c_str()));
+                name->setIcon(QIcon(findImage(romVector[i]).c_str()));
                 name->setIconSize(QSize(myConfig.tileWidth, myConfig.tileHeight));
                 QObject::connect(name, &QToolButton::clicked, [=]()
                 {
-                    cout << romVector[romcount].runpath.c_str() << endl;
-                    system(romVector[romcount].runpath.c_str());
+                    cout << romVector[i].runpath.c_str() << endl;
+                    system(romVector[i].runpath.c_str());
                        });
 
                 gridLayout->addWidget(name,row,column,1,1,{Qt::AlignTop, Qt::AlignLeft});
@@ -143,12 +144,16 @@ void renderMetaData(MainWindow *mainWindow){
     string query = "test";
 
     bool flag = true;
-    while (flag == true) {
-        flag = false;
-        for(int i=0;i<romVector.size();i++){
+
+    for (int i=1;i<romVector.size();i++){
+        if (romVector[i].imagePathIGDB == "" || !exists(romVector[i].imagePathIGDB)){
+            flag = true;
+    }
+
+    }
+    if (flag == true) {
 
             // If any roms are found without image or invalid image call python scanner and flag that another loop is needed
-            if (romVector[i].imagePathIGDB == "" || !exists(romVector[i].imagePathIGDB)){
                 //flag = true;
 
                 // Call Python to scrape three roms
@@ -195,10 +200,10 @@ void renderMetaData(MainWindow *mainWindow){
 
                 // Get Python return
                 //return _PyUnicode_AsString(presult);
-            }
+
         }
         renderMainWindow(mainWindow);
-    }
+
 }
 
 
@@ -221,7 +226,13 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle("Emulator Freightor");
     this->show();
 
-    renderMetaData(this);
+
+    // Start thread t1
+    std::thread t1(renderMetaData, this);
+
+    // Wait for t1 to finish
+    t1.join();
+    printf("done");
 }
 
 

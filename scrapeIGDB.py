@@ -24,7 +24,6 @@ def metadata(test):
     roms = json.load(f)
     f.close()
 
-    # Select up to three roms then scrape them and update both meta fields
 
     needed = []
 
@@ -40,12 +39,7 @@ def metadata(test):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()),options=chrome_options)
 
 
-    if len(needed) < 3:
-        numberOfRoms = len(needed)
-    else:
-        numberOfRoms = 3
-
-    for i in range(numberOfRoms):
+    for i in range(len(needed)):
         try:
             IGDBSearchQuery = needed[i]["filename"]
 
@@ -88,9 +82,6 @@ def metadata(test):
             if rom['filename'] == needed[i]['filename']:
                 rom = needed[i]
             
-
-
-
 
     driver.delete_all_cookies()
     driver.quit()
