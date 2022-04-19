@@ -15,7 +15,7 @@
 #include <QToolButton>
 
 #include <thread>
-
+#include <QThread>
 
 
 
@@ -129,7 +129,7 @@ void renderMainWindow(MainWindow *mainWindow){
 
 }
 
-void renderMetaData(MainWindow *mainWindow){
+void renderMetaData(){
 
 
     config myConfig;
@@ -143,7 +143,7 @@ void renderMetaData(MainWindow *mainWindow){
     string funcName = "metadata";
     string query = "test";
 
-    bool flag = true;
+    bool flag = false;
 
     for (int i=1;i<romVector.size();i++){
         if (romVector[i].imagePathIGDB == "" || !exists(romVector[i].imagePathIGDB)){
@@ -202,8 +202,6 @@ void renderMetaData(MainWindow *mainWindow){
                 //return _PyUnicode_AsString(presult);
 
         }
-        renderMainWindow(mainWindow);
-
 }
 
 
@@ -214,6 +212,7 @@ void MainWindow::timerEvent(QTimerEvent *te) {
 }
 
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -221,18 +220,24 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     renderMainWindow(this);
-
+    //this->setStyleSheet("background-image: url(:/images/images/PokerTableBackground.jpg)");
 
     this->setWindowTitle("Emulator Freightor");
     this->show();
 
 
-    // Start thread t1
-    std::thread t1(renderMetaData, this);
+
+
+
+
+
+    std::thread t1(renderMetaData);
 
     // Wait for t1 to finish
     t1.join();
-    printf("done");
+
+
+
 }
 
 
