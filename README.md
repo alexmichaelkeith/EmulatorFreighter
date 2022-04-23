@@ -74,7 +74,7 @@ QT Creator
 
 - Metadata scraping migrated to C++
   
-- Migration to MSVC from MINGW
+- Controller Support
 
   
 ## Documentation
