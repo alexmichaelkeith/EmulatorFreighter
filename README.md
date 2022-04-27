@@ -71,10 +71,10 @@ QT Creator
 ## Roadmap
 
 - Additional Emulators for download
-
-- Metadata scraping migrated to C++
   
 - Controller Support
+  
+- Steam Integration
 
   
 ## Documentation
