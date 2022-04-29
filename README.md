@@ -51,22 +51,21 @@ Insert gif or link to demo
 * Run the EmulatorFreighterSetup executable file, or unzip the raw program files
 * Run the EmulatorFreighter executable or the shortcut provided
 
-### Automatically download and configure and emulator
-
 ### Manually add and configure a custom emulator
 
 ### Add your ROM files
 
-### Configure
 ## Screenshots
 
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
 
 ## Build
   
 QT Creator
 
+  - CMake
+  - MINGW
+  
     
 ## Roadmap
 
@@ -77,7 +76,7 @@ QT Creator
 - Steam Integration
 
   
-## Documentation
+## WebSite
 
 [Documentation](https://alexmichaelkeith.com/EmulatorFreighter)
 
