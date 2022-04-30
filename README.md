@@ -35,7 +35,7 @@ A fullstack C++ application to manage emulators and roms. Automatically scrapes 
 - Intelligent ROM scanning
 - One time emulator configuration
 - IGDB Metadata scraping
-- Cross platform
+- Native Windows and Linux builds
 
 
 ## Demo
