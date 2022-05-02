@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <QMainWindow>
 
@@ -14,12 +15,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
+
+private slots:
+    void on_actionSettings_triggered();
+
 private:
     Ui::MainWindow *ui;
-
-private:
     void resizeEvent(QResizeEvent*);
+    void timerEvent(QTimerEvent *te);
 
 private:
-    void timerEvent(QTimerEvent *te);
+    int timerId = 0;
 };
+#endif // MAINWINDOW_H

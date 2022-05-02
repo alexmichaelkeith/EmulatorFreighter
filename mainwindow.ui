@@ -14,78 +14,57 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
-  <action name="actionRefresh_All">
-   <property name="text">
-    <string>Refresh All</string>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
    </property>
-  </action>
-  <action name="actionMetadata">
-   <property name="text">
-    <string>Metadata</string>
-   </property>
-  </action>
-  <action name="actionEmulators">
-   <property name="text">
-    <string>Emulators</string>
-   </property>
-  </action>
+   <widget class="QMenu" name="menuTest">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionSettings"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <widget class="QMenu" name="menuIcon_Sizes">
+     <property name="title">
+      <string>Icon Sizes</string>
+     </property>
+     <addaction name="actionSmall"/>
+     <addaction name="actionNormal"/>
+     <addaction name="actionLarge"/>
+    </widget>
+    <addaction name="menuIcon_Sizes"/>
+   </widget>
+   <addaction name="menuTest"/>
+   <addaction name="menuView"/>
+  </widget>
   <action name="actionSmall">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
    <property name="text">
     <string>Small</string>
    </property>
   </action>
-  <action name="actionMedium">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
+  <action name="actionNormal">
    <property name="text">
-    <string>Medium</string>
+    <string>Normal</string>
    </property>
   </action>
   <action name="actionLarge">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
    <property name="text">
     <string>Large</string>
    </property>
   </action>
-  <action name="actionName">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
+  <action name="actionSettings">
    <property name="text">
-    <string>Name</string>
-   </property>
-  </action>
-  <action name="actionDate">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Date</string>
-   </property>
-  </action>
-  <action name="actionIGDB_Score">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>IGDB Score</string>
-   </property>
-  </action>
-  <action name="actionExit">
-   <property name="text">
-    <string>Exit</string>
+    <string>Settings</string>
    </property>
   </action>
  </widget>

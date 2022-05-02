@@ -1,89 +1,77 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
 #include <QTimer>
 #include <QTimerEvent>
-#include "quickScanner.h"
 
-
-
+#include "EmulatorFreighter.h"
 
 #include <QGridLayout>
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QToolButton>
 
-#include <thread>
-#include <QThread>
+
+#include <iostream>
+
+#include <settings.h>
 
 
+#include <iostream>
 
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
     QMainWindow::resizeEvent(event);
-    int timerId = 0;
 
-    // FIXME killTimer not killing timer. error with id?
     if (timerId){
         killTimer(timerId);
         timerId = 0;
     }
-    timerId = startTimer(1000/*delay beetween ends of resize and your action*/);
+    timerId = startTimer(500/*delay beetween ends of resize and your action*/);
 
 }
 
 
 QGridLayout* renderGridLayout(int tilesPerScreen)
 {
-    config myConfig;
-    myConfig = readConfig();
-    quickScanner myscanner;
 
-    vector<rom> romVector;
-    romVector = myscanner.scanRoms(myConfig);
-
-    outputRoms(romVector);
-    outputConfig(myConfig);
+    EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
 
     QGridLayout *gridLayout = new QGridLayout;
     // addWidget(*Widget, row, column, rowspan, colspan)
 
-    int romcount = romVector.size() - 1;
+    int romcount = emulatorFreighter.roms.size() - 1;
     int row = 0;
     string name;
 
     int column = 0;
-
-
-
-
     for (int i=0;i<=romcount;i++) {
+        name = emulatorFreighter.roms[i].filename;
+        QToolButton *name = new QToolButton();
+        name->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        name->setStyleSheet("font: Open Sans;font-size: 12px;font: Bold;font: white;background-color: rgba(255, 255, 255, 0);color: #000000;");
+        name->setText(emulatorFreighter.findName(emulatorFreighter.roms[i]).c_str());
+        name->setMinimumWidth(emulatorFreighter.config.tileWidth);
+        name->setMinimumHeight(emulatorFreighter.config.tileHeight + (emulatorFreighter.config.tileHeight / 10));
+        name->setMaximumWidth(emulatorFreighter.config.tileWidth);
+        name->setMaximumHeight(emulatorFreighter.config.tileHeight + (emulatorFreighter.config.tileHeight / 10));
+        name->setIcon(QIcon(emulatorFreighter.findImage(emulatorFreighter.roms[i]).c_str()));
+        name->setIconSize(QSize(emulatorFreighter.config.tileWidth, emulatorFreighter.config.tileHeight));
 
-                name = romVector[i].filename;
-                QToolButton *name = new QToolButton();
-                name->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-                name->setStyleSheet("font: Georgia;font-size: 12px;font: Bold;font: white;background-color: rgba(255, 255, 255, 0);color: #FFFFFF;");
-                name->setText(findName(romVector[i]).c_str());
-                name->setMinimumWidth(myConfig.tileWidth);
-                name->setMinimumHeight(myConfig.tileHeight + (myConfig.tileHeight / 10));
-                name->setMaximumWidth(myConfig.tileWidth);
-                name->setMaximumHeight(myConfig.tileHeight + (myConfig.tileHeight / 10));
-                name->setIcon(QIcon(findImage(romVector[i]).c_str()));
-                name->setIconSize(QSize(myConfig.tileWidth, myConfig.tileHeight));
-                QObject::connect(name, &QToolButton::clicked, [=]()
-                {
-                    cout << romVector[i].runpath.c_str() << endl;
-                    system(romVector[i].runpath.c_str());
-                       });
+        string runPath = emulatorFreighter.roms[i].runpath;
 
-                gridLayout->addWidget(name,row,column,1,1,{Qt::AlignTop, Qt::AlignLeft});
+        QObject::connect(name, &QToolButton::clicked, [=]()
+        {
+            system(runPath.c_str());
+        });
 
-                gridLayout->setContentsMargins(0, 0, 0, 0);
+        gridLayout->addWidget(name,row,column,1,1,{Qt::AlignTop, Qt::AlignLeft});
 
-                gridLayout->setSizeConstraint(QLayout::SetFixedSize);
-                gridLayout->setVerticalSpacing(0);
-                gridLayout->setHorizontalSpacing(10);
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+
+        gridLayout->setSizeConstraint(QLayout::SetFixedSize);
+        gridLayout->setVerticalSpacing(0);
+        gridLayout->setHorizontalSpacing(10);
 
 
     column++;
@@ -98,13 +86,12 @@ QGridLayout* renderGridLayout(int tilesPerScreen)
 
 void renderMainWindow(MainWindow *mainWindow){
 
-    config myConfig;
-    myConfig = readConfig();
+    EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
 
 
     int tilesPerScreen;
     int screenSize = mainWindow->size().width();
-    tilesPerScreen = floor(screenSize / (myConfig.tileWidth));
+    tilesPerScreen = floor(screenSize / (emulatorFreighter.config.tileWidth));
 
     QWidget *w = new QWidget(mainWindow);
     QGridLayout *gridLayout = renderGridLayout(tilesPerScreen);
@@ -131,84 +118,20 @@ void renderMainWindow(MainWindow *mainWindow){
 
 void renderMetaData(){
 
+    EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
 
-    config myConfig;
-    myConfig = readConfig();
-    quickScanner myscanner;
 
-    vector<rom> romVector;
-    romVector = myscanner.scanRoms(myConfig);
 
-    vector<rom> metaQueue;
-    string funcName = "metadata";
-    string query = "test";
 
-    bool flag = false;
 
-    for (int i=1;i<romVector.size();i++){
-        if (romVector[i].imagePathIGDB == "" || !exists(romVector[i].imagePathIGDB)){
-            flag = true;
-    }
 
-    }
-    if (flag == true) {
-
-            // If any roms are found without image or invalid image call python scanner and flag that another loop is needed
-                //flag = true;
-
-                // Call Python to scrape three roms
-
-                char* procname = new char[funcName.length() + 1];
-                strcpy(procname, funcName.c_str());
-
-                char* paramval = new char[query.length() + 1];
-                strcpy(paramval, query.c_str());
-
-                PyObject* pName, * pModule, * pDict, * pFunc, * pValue = nullptr, * presult = nullptr;
-                // Initialize the Python Interpreter
-                Py_Initialize();
-                // Build the name object
-                pName = PyUnicode_FromString((char*)"scrapeIGDB");
-                // Load the module object
-                pModule = PyImport_Import(pName);
-                // pDict is a borrowed reference
-                pDict = PyModule_GetDict(pModule);
-                // pFunc is also a borrowed reference
-                pFunc = PyDict_GetItemString(pDict, procname);
-                if (PyCallable_Check(pFunc))
-                {
-                    pValue = Py_BuildValue("(z)", paramval);
-                    PyErr_Print();
-                    presult = PyObject_CallObject(pFunc, pValue);
-                    PyErr_Print();
-                }
-                else
-                {
-                    PyErr_Print();
-                }
-                //printf("Result is %d\n", _PyUnicode_AsString(presult));
-                Py_DECREF(pValue);
-                // Clean up
-                Py_DECREF(pModule);
-                Py_DECREF(pName);
-                // Finish the Python Interpreter
-                Py_Finalize();
-
-                // clean
-                delete[] procname;
-                delete[] paramval;
-
-                // Get Python return
-                //return _PyUnicode_AsString(presult);
-
-        }
 }
-
 
 void MainWindow::timerEvent(QTimerEvent *te) {
 
     renderMainWindow(this);
     killTimer(te->timerId());
+    timerId = 0;
 }
 
 
@@ -220,23 +143,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     renderMainWindow(this);
-    //this->setStyleSheet("background-image: url(:/images/images/PokerTableBackground.jpg)");
-
-    this->setWindowTitle("Emulator Freightor");
+    this->setWindowTitle("Emulator Freighter");
     this->show();
-
-
-
-
-
-
-
-    std::thread t1(renderMetaData);
-
-    // Wait for t1 to finish
-    t1.join();
-
-
 
 }
 
@@ -245,4 +153,14 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+
+void MainWindow::on_actionSettings_triggered()
+{
+    Settings settings;
+    settings.setModal(true);
+    settings.exec();
+}
+
 
