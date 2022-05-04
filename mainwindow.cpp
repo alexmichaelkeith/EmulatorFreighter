@@ -19,6 +19,9 @@
 
 #include <iostream>
 
+#include <QtWebView>
+
+
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
     QMainWindow::resizeEvent(event);

@@ -54,6 +54,10 @@ else()
     endif()
 endif()
 
+
+find_package(Qt6 REQUIRED COMPONENTS WebView)
+target_link_libraries(EmulatorFreighter PRIVATE Qt6::WebView)
+
 target_link_libraries(EmulatorFreighter PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 set_target_properties(EmulatorFreighter PROPERTIES
@@ -63,6 +67,15 @@ set_target_properties(EmulatorFreighter PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+
+# Command to copy target file into build USE FOR ICON AND OTHER IMAGES
+#add_custom_command(
+        #TARGET EmulatorFreighter PRE_BUILD
+        #COMMAND ${CMAKE_COMMAND} -E copy
+                #${CMAKE_SOURCE_DIR}/input.txt
+                #${CMAKE_CURRENT_BINARY_DIR}/input.txt)
+
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(EmulatorFreighter)
