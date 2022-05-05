@@ -19,7 +19,7 @@
 
 #include <iostream>
 
-#include <QtWebView>
+//#include <QtWebView>
 
 
 void MainWindow::resizeEvent(QResizeEvent* event)
@@ -94,7 +94,7 @@ void renderMainWindow(MainWindow *mainWindow){
 
     int tilesPerScreen;
     int screenSize = mainWindow->size().width();
-    tilesPerScreen = floor(screenSize / (emulatorFreighter.config.tileWidth));
+    tilesPerScreen = floor((screenSize) / (emulatorFreighter.config.tileWidth * .95));
 
     QWidget *w = new QWidget(mainWindow);
     QGridLayout *gridLayout = renderGridLayout(tilesPerScreen);
@@ -122,10 +122,6 @@ void renderMainWindow(MainWindow *mainWindow){
 void renderMetaData(){
 
     EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
-
-
-
-
 
 
 }

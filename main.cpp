@@ -14,10 +14,10 @@ int main(int argc, char *argv[])
 {
 
     // Get instance of Emulator Freighter
-    //EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
+    EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
 
     // Scan Roms
-    //emulatorFreighter.scanRoms();
+    emulatorFreighter.scanRoms();
 
     // Create MainWindow
     QApplication app(argc, argv);
