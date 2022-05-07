@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="config/images/Freighter.png">
+  <img src="Freighter.png">
 </p>
 
 <h1 align="center">
