@@ -19,8 +19,6 @@
 
 #include <iostream>
 
-//#include <QtWebView>
-
 
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
@@ -45,7 +43,7 @@ QGridLayout* renderGridLayout(int tilesPerScreen)
 
     int romcount = emulatorFreighter.roms.size() - 1;
     int row = 0;
-    string name;
+    std::string name;
 
     int column = 0;
     for (int i=0;i<=romcount;i++) {
@@ -61,7 +59,7 @@ QGridLayout* renderGridLayout(int tilesPerScreen)
         name->setIcon(QIcon(emulatorFreighter.findImage(emulatorFreighter.roms[i]).c_str()));
         name->setIconSize(QSize(emulatorFreighter.config.tileWidth, emulatorFreighter.config.tileHeight));
 
-        string runPath = emulatorFreighter.roms[i].runpath;
+        std::string runPath = emulatorFreighter.roms[i].runpath;
 
         QObject::connect(name, &QToolButton::clicked, [=]()
         {
@@ -119,12 +117,14 @@ void renderMainWindow(MainWindow *mainWindow){
 
 }
 
-void renderMetaData(){
+void test() {
 
-    EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
 
 
 }
+
+
+
 
 void MainWindow::timerEvent(QTimerEvent *te) {
 

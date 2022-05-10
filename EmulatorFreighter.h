@@ -10,13 +10,9 @@
 
 #include <iostream>
 
-
 #include "json.hpp"
 
-using namespace std;
-using namespace filesystem;
-using json = nlohmann::json;
-
+#include <QUrl>
 
 // Singleton Design Pattern EmulatorFreighter class definition
 
@@ -66,7 +62,7 @@ class EmulatorFreighter
 
             // Blank Const fixes JSON Serializing issue?
             Emulator() {}
-            Emulator(std::string a, std::vector<string> b, std::string c, std::string d, std::string e) {// Constructor
+            Emulator(std::string a, std::vector<std::string> b, std::string c, std::string d, std::string e) {// Constructor
 
                 this->name = a;
                 this->extensions = b;
@@ -131,9 +127,9 @@ class EmulatorFreighter
         // Create single instance of roms, vector of ROM
         std::vector<ROM> roms;
         // Create single instance of emulators, vector of Emulator
-        vector<Emulator> emulators;
+        std::vector<Emulator> emulators;
         // Create single instance of compatibleExtensions, vector of strings
-        vector<string> compatibleExtensions;
+        std::vector<std::string> compatibleExtensions;
         // Create single instance of config
         Config config;
 
@@ -145,12 +141,12 @@ class EmulatorFreighter
         // Method to read roms json file
         void readRoms() {
             std::fstream fin;
-            if (exists("config/paths/roms.json")) {
+            if (std::filesystem::exists("config/paths/roms.json")) {
                 try {
-                    fin.open("config/paths/roms.json", ios::in | ios::app);
+                    fin.open("config/paths/roms.json", std::ios::in | std::ios::app);
                     if(fin.is_open())
                     {
-                        json j = json::parse(fin);
+                        nlohmann::json j = nlohmann::json::parse(fin);
                         roms = j;
                     }
                 } catch (...) {}
@@ -160,12 +156,12 @@ class EmulatorFreighter
         // Method to read emulators json file
         void readEmulators() {
             std::fstream fin;
-            if (exists("config/paths/emulators.json")) {
+            if (std::filesystem::exists("config/paths/emulators.json")) {
                 try {
-                    fin.open("config/paths/emulators.json", ios::in | ios::app);
+                    fin.open("config/paths/emulators.json", std::ios::in | std::ios::app);
                     if(fin.is_open())
                     {
-                        json j = json::parse(fin);
+                        nlohmann::json j = nlohmann::json::parse(fin);
                         emulators = j;
                     }
                 } catch (...) {}
@@ -175,11 +171,11 @@ class EmulatorFreighter
         // Method to read the config json file
         void readConfig() {
             std::fstream fin;
-            fin.open("config/paths/config.json", ios::in | ios::app);
+            fin.open("config/paths/config.json", std::ios::in | std::ios::app);
             try {
                 if(fin.is_open())
                 {
-                    json j = json::parse(fin);
+                    nlohmann::json j = nlohmann::json::parse(fin);
                     config = j;
                 }
             }  catch (...) {}
@@ -191,8 +187,8 @@ class EmulatorFreighter
             std::fstream fout;
             fout.open("config/paths/roms.json", std::ofstream::out | std::ofstream::trunc);
             fout.close();
-            fout.open("config/paths/roms.json", ios::out | ios::app);
-            json j = roms;
+            fout.open("config/paths/roms.json", std::ios::out | std::ios::app);
+            nlohmann::json j = roms;
             fout << std::setw(4) << j << std::endl;
         }
 
@@ -202,8 +198,8 @@ class EmulatorFreighter
             std::fstream fout;
             fout.open("config/paths/emulators.json", std::ofstream::out | std::ofstream::trunc);
             fout.close();
-            fout.open("config/paths/emulators.json", ios::out | ios::app);
-            json j = emulators;
+            fout.open("config/paths/emulators.json", std::ios::out | std::ios::app);
+            nlohmann::json j = emulators;
             fout << std::setw(4) << j << std::endl;
         }
 
@@ -214,13 +210,13 @@ class EmulatorFreighter
             fout.open("config/paths/config.json", std::ofstream::out | std::ofstream::trunc);
             fout.close();
 
-            fout.open("config/paths/config.json", ios::out | ios::app);
-            json j = config;
+            fout.open("config/paths/config.json", std::ios::out | std::ios::app);
+            nlohmann::json j = config;
             fout << std::setw(4) << j << std::endl;
         }
 
         // Method to return the correct emulator for each rom
-        string findRomEmulatorValues(vector<Emulator> emulatorVector, ROM currentRom, string value) {
+        std::string findRomEmulatorValues(std::vector<Emulator> emulatorVector, ROM currentRom, std::string value) {
 
             bool flag = false;
             for (int i = 0; i< emulatorVector.size();i++) {
@@ -255,40 +251,40 @@ class EmulatorFreighter
             std::fstream fout;
 
             // Create rom folder if nonexistent
-            if(!exists("roms")) {
-                create_directory("roms");
+            if(!std::filesystem::exists("roms")) {
+                std::filesystem::create_directory("roms");
             }
             // Create metadata folder if nonexistent
-            if(!exists("metadata")) {
-                create_directory("metadata");
+            if(!std::filesystem::exists("metadata")) {
+                std::filesystem::create_directory("metadata");
             }
             // Create emulators folder if nonexistent
-            if(!exists("emulators")) {
-                create_directory("emulators");
+            if(!std::filesystem::exists("emulators")) {
+                std::filesystem::create_directory("emulators");
             }
 
             // Create Config folder if nonexistent
-            if(!exists("config")) {
-                create_directory("config");
+            if(!std::filesystem::exists("config")) {
+                std::filesystem::create_directory("config");
             }
 
             // Create Config folder if nonexistent
-            if(!exists("config/paths")) {
-                create_directory("config/paths");
+            if(!std::filesystem::exists("config/paths")) {
+                std::filesystem::create_directory("config/paths");
             }
 
             // Create roms file if nonexistent
-            if(!exists("config/paths/roms.json")) {
+            if(!std::filesystem::exists("config/paths/roms.json")) {
                 writeRoms();
             }
 
             // Create emulators file if nonexistent
-            if(!exists("config/paths/emulators.json")) {
+            if(!std::filesystem::exists("config/paths/emulators.json")) {
                 writeEmulators();
             }
 
             // Create config file if nonexistent
-            if(!exists("config/paths/config.json")) {
+            if(!std::filesystem::exists("config/paths/config.json")) {
                 writeConfig();
             }
         }
@@ -305,9 +301,9 @@ class EmulatorFreighter
         }
 
         // Method to find image for widget tiles
-        string findImage(ROM currentRom) {
+        std::string findImage(ROM currentRom) {
 
-            if (exists(currentRom.imagePathIGDB)) {
+            if (std::filesystem::exists(currentRom.imagePathIGDB)) {
                 return currentRom.imagePathIGDB;
             }
             else {
@@ -316,7 +312,7 @@ class EmulatorFreighter
         }
 
         // Method to find name for widget tiles
-        string findName(ROM currentRom) {
+        std::string findName(ROM currentRom) {
             if (currentRom.nameIGDB == "No Match Found" || currentRom.nameIGDB == "") {
                 return currentRom.filename;
             }
@@ -326,15 +322,15 @@ class EmulatorFreighter
         }
 
         // Method to find run path for roms
-        string getRunPath(string emulatorPath, string midParameters, string path, string trailingParameters) {
+        std::string getRunPath(std::string emulatorPath, std::string midParameters, std::string path, std::string trailingParameters) {
 
-            string runPath;
+            std::string runPath;
             runPath = "\"\"" + emulatorPath + "\" " + midParameters + " \"" + path + "\"" + trailingParameters + "\"";
             return runPath;
         }
 
         // Method to remove commas from filename
-        string cleanupFilename(string fileName) {
+        std::string cleanupFilename(std::string fileName) {
 
             // Replace commas and semicolons to preserve csv file accuracy
             replace(fileName.begin(), fileName.end(), ',', ' '); // replace all ',' to ' '
@@ -343,7 +339,7 @@ class EmulatorFreighter
 
         // Method to scan filesystem for roms
         void scanRoms() {
-            string currentRom;
+            std::string currentRom;
 
             // Verify file structure
             verifyFileStructure();
@@ -352,14 +348,14 @@ class EmulatorFreighter
                 // Loop to search recursivly through the roms folder
                 bool flag = false;
                 try{
-                    for (const auto & file : filesystem::recursive_directory_iterator(config.romDirectories[i]))
+                    for (const auto & file : std::filesystem::recursive_directory_iterator(config.romDirectories[i]))
                     {
                         // If it's a regular file and is not already in roms vector, list it
                         if (is_regular_file(file.path()) && (find(compatibleExtensions.begin(), compatibleExtensions.end(), file.path().extension().string()) != compatibleExtensions.end())) {
                             // check if rom already exists in roms vector
                             flag = false;
                             for (int i=0;i<roms.size();i++) {
-                                if (file.path().stem().string() == roms[i].filename && exists(roms[i].path)) {
+                                if (file.path().stem().string() == roms[i].filename && std::filesystem::exists(roms[i].path)) {
                                     flag = true;
                                     break;
                                 }
@@ -375,6 +371,11 @@ class EmulatorFreighter
              }
             // Save ROMS file
             writeRoms();
+        }
+        void scrapeIGDB(){
+
+
+
         }
 };
 

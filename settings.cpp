@@ -3,6 +3,7 @@
 
 #include "EmulatorFreighter.h"
 
+
 Settings::Settings(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Settings)
@@ -52,17 +53,17 @@ std::string vectorToString(std::vector<std::string> const &strings, std::string 
     std::stringstream ss;
     std::copy(strings.begin(), strings.end(),
     std::ostream_iterator<std::string>(ss, delim.c_str()));
-    string extensionsString = ss.str();
+    std::string extensionsString = ss.str();
     if (extensionsString != ""){extensionsString.pop_back();}
     return extensionsString;
 }
 
-std::vector<string> stringToVector(string extensionsString)
+std::vector<std::string> stringToVector(std::string extensionsString)
 {
-        vector<string> v;
-        stringstream ss(extensionsString);
+        std::vector<std::string> v;
+        std::stringstream ss(extensionsString);
         while (ss.good()) {
-            string substr;
+            std::string substr;
             getline(ss, substr, ',');
             v.push_back(substr);
         }
