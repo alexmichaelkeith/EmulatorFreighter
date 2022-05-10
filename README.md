@@ -72,9 +72,9 @@ QT Creator
 
 - Additional Emulators for download
 
-- Metadata scraping migrated to C++
+- Metadata scraping migrated to QT C++
   
-- Migration to MSVC from MINGW
+- Themes and cleaner UI
 
   
 ## Documentation

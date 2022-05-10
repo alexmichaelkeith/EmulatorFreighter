@@ -1,6 +1,4 @@
-QT       += core gui
-
-QT       += webenginewidgets
+QT += core gui webview
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
