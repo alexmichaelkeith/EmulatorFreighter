@@ -1,3 +1,4 @@
+
 #include "mainwindow.h"
 
 #include <QApplication>
@@ -9,6 +10,8 @@
 #include <iostream>
 
 #include <filesystem>
+
+
 
 int main(int argc, char *argv[])
 {

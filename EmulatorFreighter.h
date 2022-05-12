@@ -1,6 +1,9 @@
 #ifndef EMULATORFREIGHTER_H
 #define EMULATORFREIGHTER_H
 
+//#define PY_SSIZE_T_CLEAN
+//#include <Python.h>
+
 #include <vector>
 #include <string>
 
@@ -372,11 +375,14 @@ class EmulatorFreighter
             // Save ROMS file
             writeRoms();
         }
-        void scrapeIGDB(){
+
+        void scrape() {
+
 
 
 
         }
+
 };
 
 #endif // EMULATORFREIGHTER_H
