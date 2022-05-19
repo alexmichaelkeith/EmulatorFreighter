@@ -11,14 +11,7 @@
 #include <QScrollBar>
 #include <QToolButton>
 
-
-#include <iostream>
-
 #include <settings.h>
-
-
-#include <iostream>
-
 
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
@@ -89,7 +82,6 @@ void renderMainWindow(MainWindow *mainWindow){
 
     EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
 
-
     int tilesPerScreen;
     int screenSize = mainWindow->size().width();
     tilesPerScreen = floor((screenSize) / (emulatorFreighter.config.tileWidth * .95));
@@ -115,15 +107,8 @@ void renderMainWindow(MainWindow *mainWindow){
     scrollArea->verticalScrollBar()->setStyleSheet("QScrollBar {width:0px;}");
     scrollArea->setFrameShape(QFrame::NoFrame);
 
-}
-
-void test() {
-
-
 
 }
-
-
 
 
 void MainWindow::timerEvent(QTimerEvent *te) {
@@ -144,7 +129,6 @@ MainWindow::MainWindow(QWidget *parent)
     renderMainWindow(this);
     this->setWindowTitle("Emulator Freighter");
     this->show();
-
 }
 
 

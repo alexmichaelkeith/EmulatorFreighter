@@ -72,7 +72,7 @@ QT Creator
 
 - Additional Emulators for download
 
-- Metadata scraping migrated to QT C++
+- Compile Python scraping to Cython
   
 - Themes and cleaner UI
 
