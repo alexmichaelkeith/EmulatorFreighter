@@ -339,6 +339,7 @@ class EmulatorFreighter
             return fileName;
         }
 
+        void scrapeROMS() {}
         // Method to scan filesystem for roms
         void scanRoms() {
             std::string currentRom;
@@ -379,9 +380,11 @@ class EmulatorFreighter
 
             if (roms[i].nameIGDB == "") {
                 // Scrape ROMS
-                std::thread t(scrapeROMS);
+                //std::thread t(scrapeROMS);
+                scrapeROMS();
             }
         }
+        //std::thread( [this] { this->scrapeROMS(); } );
         }
 };
 
