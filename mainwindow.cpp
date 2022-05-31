@@ -78,8 +78,9 @@ QGridLayout* renderGridLayout(int tilesPerScreen)
 }
 
 
-void renderMainWindow(MainWindow *mainWindow){
+void MainWindow::renderMainWindow(MainWindow *mainWindow){
 
+    std::printf("rendering");
     EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
 
     int tilesPerScreen;

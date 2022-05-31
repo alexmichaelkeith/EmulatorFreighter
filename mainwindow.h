@@ -18,6 +18,8 @@ public:
     ~MainWindow();
 
 
+public:
+    void renderMainWindow(MainWindow *mainWindow);
 
 private slots:
     void on_actionSettings_triggered();
@@ -26,6 +28,7 @@ private:
     Ui::MainWindow *ui;
     void resizeEvent(QResizeEvent*);
     void timerEvent(QTimerEvent *te);
+
 
 private:
     int timerId = 0;

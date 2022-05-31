@@ -8,10 +8,10 @@
 #include <string>
 #include <chrono>
 #include <thread>
-inline void scrapeROMS() {
-    std::printf("test");
+#include "mainwindow.h"
+inline void scrapeROMS(MainWindow *mainWindow) {
     using namespace std::literals::chrono_literals;
-    std::this_thread::sleep_for(5000ms);
+    std::this_thread::sleep_for(3000ms);
     std::string funcName = "metadata";
     std::string query  = "test";
     char* procname = new char[funcName.length() + 1];
@@ -51,5 +51,7 @@ inline void scrapeROMS() {
     delete[] procname;
     delete[] paramval;
     //return _PyUnicode_AsString(presult);
+    mainWindow->renderMainWindow(mainWindow);
+    //renderMainWindow(*mainWindow);
 }
 #endif // SCRAPE_H
