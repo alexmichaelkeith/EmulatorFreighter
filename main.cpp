@@ -3,8 +3,15 @@
 #include "EmulatorFreighter.h"
 //#include "Scrape.h"
 #include <thread>
+#include <QEventLoop>
 
 #include "Scrape.h"
+
+#include <QFutureWatcher>
+
+#include <QFuture>
+
+#include <QtConcurrent>
 
 int main(int argc, char *argv[])
 {
@@ -29,10 +36,26 @@ int main(int argc, char *argv[])
     // Create MainWindow
     MainWindow *mainWindow = new MainWindow;
 
-    // Scrape Roms
-    std::thread t(scrapeROMS, mainWindow);
+    // Scrape ROMS
 
-    //MainWindow* mainWindow = emulatorFreighter.mainWindow;
-    // execute app
+    // Instantiate the objects and connect to the finished signal.
+    //MyClass myObject;
+    QFutureWatcher<int> watcher;
+    MainWindow::connect(&watcher, SIGNAL(finished()), mainWindow, SLOT(handleFinished()));
+
+    bool needScrape = false;
+    for(int i=0;i<=emulatorFreighter.roms.size();i++) {
+
+        if (emulatorFreighter.roms[i].nameIGDB == "") {
+            needScrape = true;
+        }
+    }
+
+    if (needScrape == true){
+    // Scrape ROMS in seperate thread
+    QFuture<int> future = QtConcurrent::run(scrapeROMS);
+    watcher.setFuture(future);
+    }
+
     return app.exec();
 }

@@ -80,9 +80,7 @@ QGridLayout* renderGridLayout(int tilesPerScreen)
 
 void MainWindow::renderMainWindow(MainWindow *mainWindow){
 
-    std::printf("rendering");
     EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
-
     int tilesPerScreen;
     int screenSize = mainWindow->size().width();
     tilesPerScreen = floor((screenSize) / (emulatorFreighter.config.tileWidth * .95));
@@ -111,6 +109,12 @@ void MainWindow::renderMainWindow(MainWindow *mainWindow){
 
 }
 
+void MainWindow::handleFinished() {
+    EmulatorFreighter& emulatorFreighter = EmulatorFreighter::getInstance();
+    emulatorFreighter.roms.clear();
+    emulatorFreighter.readRoms();
+    renderMainWindow(this);
+}
 
 void MainWindow::timerEvent(QTimerEvent *te) {
 

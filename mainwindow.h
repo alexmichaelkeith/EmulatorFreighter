@@ -23,6 +23,7 @@ public:
 
 private slots:
     void on_actionSettings_triggered();
+    void handleFinished();
 
 private:
     Ui::MainWindow *ui;

@@ -9,7 +9,9 @@
 #include <chrono>
 #include <thread>
 #include "mainwindow.h"
-inline void scrapeROMS(MainWindow *mainWindow) {
+#include "EmulatorFreighter.h"
+
+inline int scrapeROMS() {
     using namespace std::literals::chrono_literals;
     std::this_thread::sleep_for(3000ms);
     std::string funcName = "metadata";
@@ -51,7 +53,7 @@ inline void scrapeROMS(MainWindow *mainWindow) {
     delete[] procname;
     delete[] paramval;
     //return _PyUnicode_AsString(presult);
-    mainWindow->renderMainWindow(mainWindow);
+    //mainWindow->renderMainWindow(mainWindow);
     //renderMainWindow(*mainWindow);
 }
 #endif // SCRAPE_H
