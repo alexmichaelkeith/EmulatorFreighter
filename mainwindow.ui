@@ -30,22 +30,7 @@
     </property>
     <addaction name="actionSettings"/>
    </widget>
-   <widget class="QMenu" name="menuView">
-    <property name="title">
-     <string>View</string>
-    </property>
-    <widget class="QMenu" name="menuIcon_Sizes">
-     <property name="title">
-      <string>Icon Sizes</string>
-     </property>
-     <addaction name="actionSmall"/>
-     <addaction name="actionNormal"/>
-     <addaction name="actionLarge"/>
-    </widget>
-    <addaction name="menuIcon_Sizes"/>
-   </widget>
    <addaction name="menuTest"/>
-   <addaction name="menuView"/>
   </widget>
   <action name="actionSmall">
    <property name="text">
