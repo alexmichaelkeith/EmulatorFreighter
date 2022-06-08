@@ -112,5 +112,5 @@ For support, email alex.michael.keith@gmail.com
 
 
 ## 🚀 About Me
-I'm a full stack developer...
+I'm a full stack developer, learn more about me <a href="https://alexmichaelkeith.com/">here</a>.
 
