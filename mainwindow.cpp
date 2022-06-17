@@ -21,7 +21,7 @@ void MainWindow::resizeEvent(QResizeEvent* event)
         killTimer(timerId);
         timerId = 0;
     }
-    timerId = startTimer(500/*delay beetween ends of resize and your action*/);
+    timerId = startTimer(250/*delay beetween ends of resize and your action*/);
 
 }
 
