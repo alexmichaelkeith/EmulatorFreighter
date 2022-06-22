@@ -321,7 +321,7 @@ class EmulatorFreighter
                 return currentRom.imagePathIGDB;
             }
             else {
-                return "config/images/covermissing.png";
+                return "config/images/nocover.png";
             }
         }
 

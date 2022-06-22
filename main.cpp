@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     MainWindow::connect(&watcher, SIGNAL(finished()), mainWindow, SLOT(handleFinished()));
 
     bool needScrape = false;
-    for(int i=0;i<=emulatorFreighter.roms.size();i++) {
+    for(int i=0;i<emulatorFreighter.roms.size();i++) {
 
         if (emulatorFreighter.roms[i].nameIGDB == "" || (!(std::filesystem::exists(emulatorFreighter.roms[i].imagePathIGDB)))) {
             needScrape = true;
